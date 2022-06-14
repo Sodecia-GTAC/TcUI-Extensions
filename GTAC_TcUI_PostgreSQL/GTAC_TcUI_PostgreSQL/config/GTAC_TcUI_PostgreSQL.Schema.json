@@ -1,0 +1,35 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+
+    "AddrServer": {
+      "type": "string",
+      "default": "localhost"
+    },
+
+    "DB": {
+      "type": "string",
+      "default": "postgres"
+    },
+
+    "Port": {
+      "type": "string",
+      "default": "5432"
+    },
+
+    "username": {
+      "type": "string",
+      "default": "postgres"
+
+    },
+
+    "userpassword": {
+      "type": "string",
+      "default": "test"
+
+    }
+
+  }
+
+ }

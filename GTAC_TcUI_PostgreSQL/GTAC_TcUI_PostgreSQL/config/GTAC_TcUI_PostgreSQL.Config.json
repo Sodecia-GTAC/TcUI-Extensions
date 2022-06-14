@@ -1,0 +1,50 @@
+﻿{
+  "$schema": "ExtensionSettings.Schema.json",
+  "guid": "0542e480-5ef4-401b-a478-ce0f2b61cd1e",
+  "version": "0.0.0.3",
+  "configVersion": "0.0.0.4",
+  "policies": [
+    "StrictPropertyValidation"
+  ],
+  "symbols": {
+    "CONNECT": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          }
+        ]
+      }
+    },
+    "SELECT": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          }
+        ]
+      }
+    },
+    "INSERT": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          }
+        ]
+      }
+    }
+  }
+}

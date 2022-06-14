@@ -1,0 +1,2 @@
+﻿Original Author: Brent Lekx-Toniolo, Server Extension created during Sodecia GTAC IWS -> TcUI migration project
+Copyright (c) Brent Lekx-Toniolo. All rights reserved

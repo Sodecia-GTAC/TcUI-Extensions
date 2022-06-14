@@ -1,0 +1,12 @@
+﻿{
+  "$schema": "Language.Schema.json",
+  "locale": "en",
+  "localizedText": {
+    "AddrServer": "Address of Server",
+    "DB": "Database",
+    "Port": "Port",
+    "username": "User Name",
+    "userpassword": "User Password"
+
+  }
+}
