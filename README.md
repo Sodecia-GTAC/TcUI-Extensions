@@ -1,4 +1,4 @@
-# TcUI Migration Repository
+# TcUI Extensions Repository
 
 Welcome to the Sodecia - GTAC, TcUI - Extentions Repository
 
