@@ -4,6 +4,7 @@
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 		<AssemblyName>GTAC_TcUI_PostgreSQL</AssemblyName>
+		<Platforms>AnyCPU</Platforms>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -41,5 +42,9 @@
 	<PropertyGroup>
 		<ProjectGuid>0542e480-5ef4-401b-a478-ce0f2b61cd1e</ProjectGuid>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Npgsql" Version="6.0.4" />
+	</ItemGroup>
 
 </Project>

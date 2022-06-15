@@ -26,7 +26,7 @@
 
     "userpassword": {
       "type": "string",
-      "default": "test"
+      "default": "password1"
 
     }
 

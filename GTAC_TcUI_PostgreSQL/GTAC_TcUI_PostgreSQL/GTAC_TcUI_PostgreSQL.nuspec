@@ -2,11 +2,11 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>GTAC_TcUI_PostgreSQL</id>
-    <version>0.0.0.3</version>
+    <version>0.0.0.71</version>
     <title>$Sodecia GTAC TcUI PostgreSQL Server Extension$</title>
     <authors>Brent Lekx-Toniolo</authors>
     <owners>TBD</owners>
-    <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl>
+    <projectUrl>http://fort-wisers.ca</projectUrl>
     <license type="file">LICENSE.txt</license>
     <icon>images/logo.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -17,6 +17,7 @@
     <dependencies>
       <group targetFramework="netstandard2.0">
         <!-- Package dependencies -->
+		  <dependency id="Npgsql" version="6.0.4" />
       </group>
     </dependencies>
   </metadata>

@@ -1,8 +1,8 @@
 ﻿{
   "$schema": "ExtensionSettings.Schema.json",
   "guid": "0542e480-5ef4-401b-a478-ce0f2b61cd1e",
-  "version": "0.0.0.3",
-  "configVersion": "0.0.0.4",
+  "version": "0.0.0.71",
+  "configVersion": "0.0.0.72",
   "policies": [
     "StrictPropertyValidation"
   ],
@@ -16,6 +16,9 @@
         "allOf": [
           {
             "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
           }
         ]
       }
@@ -29,6 +32,9 @@
         "allOf": [
           {
             "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
           }
         ]
       }
@@ -42,6 +48,9 @@
         "allOf": [
           {
             "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
           }
         ]
       }

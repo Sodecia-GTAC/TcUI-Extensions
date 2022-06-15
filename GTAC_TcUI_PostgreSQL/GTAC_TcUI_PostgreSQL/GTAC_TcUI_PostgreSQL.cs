@@ -7,10 +7,14 @@
 //-----------------------------------------------------------------------
 
 using System;
+using System.Data.Odbc;
+
 using TcHmiSrv.Core;
 using TcHmiSrv.Core.General;
 using TcHmiSrv.Core.Listeners;
 using TcHmiSrv.Core.Tools.Management;
+using Npgsql;
+
 
 namespace GTAC_TcUI_PostgreSQL
 {
@@ -29,10 +33,22 @@ namespace GTAC_TcUI_PostgreSQL
             return ErrorValue.HMI_SUCCESS;
         }
 
-
         //-----------------------------------------------------------------
         // Custom Methods for use in this Server Extension, b.lekx-toniolo
         //-----------------------------------------------------------------
+        
+        //---------- Server Extension Diagnostics -------------
+        private Value CollectDiagnosticsData()
+        {
+            return new Value
+            {
+                { "DBconnectionstate", "Connected!" },
+                { "DBversion", "1.6.9"  }
+            };
+        }
+
+
+        //------------ Connect to DB ----------------
         private void CONNECT(Command command)
         {
             //Retreive Server Extension parameters
@@ -40,13 +56,61 @@ namespace GTAC_TcUI_PostgreSQL
             string DB = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "DB");
             string Port = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "Port");
             string username = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "username");
+            //DEBUG build temp password
+            string password = "temp";
+
+            //DEBUG NPGSQL method
+            //Build connection string using parameters from TcHmi Server Configuration
+           
+            string connectionString =
+                String.Format(
+                    "Server={0};Username={1};Database={2};Port={3};Password={4};SSLMode=Prefer",
+                    ServerAddr,
+                    username,
+                    DB,
+                    Port,
+                    password);
+
+            //Trial connect to DB
+            var conn = new NpgsqlConnection(connectionString);
+            
+
+            /*DEBUG ODBC Method
+
+            string connectionString = "Driver={PostgreSQL UNICODE};Port=5432;Server=localhost;Database=UI;Uid=postgres;Pwd=temp;";
+           
+            OdbcConnection connection = new OdbcConnection(connectString);
+
+            connection.Open();
+
+            string sql = "select version()";
+            OdbcCommand cmd = new OdbcCommand(sql, connection);
+
+            OdbcDataReader dr = cmd.ExecuteReader();
+            dr.Read();
+            string dbVersion = dr.GetString(0);
+            */
+
+            if (conn != null)
+            {
+                command.ReadValue = "Success! -> Connected to DB";
+                command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLSuccess;
+
+            }
+            else
+            {
+                command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLFail;
+            }
 
         }
 
+        //------------ Read data from DB --------------
         private void SELECT(Command command)
         {
             //To be completed
         }
+
+        //------------- Write data to DB -----------------
         private void INSERT(Command command)
         {
             //To be completed
@@ -70,6 +134,11 @@ namespace GTAC_TcUI_PostgreSQL
                         // Use the mapping to check which command is requested
                         switch (command.Mapping)
                         {
+                            //Sever Extension Diagnostics I
+                            case "Diagnostics":
+                                command.ReadValue = CollectDiagnosticsData();
+                                break;
+                                
                             //Connect to DB Server
                             case "CONNECT":
                                 CONNECT(command);
