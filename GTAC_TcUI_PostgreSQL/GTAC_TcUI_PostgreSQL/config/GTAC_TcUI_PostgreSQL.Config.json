@@ -1,8 +1,8 @@
 ﻿{
   "$schema": "ExtensionSettings.Schema.json",
   "guid": "0542e480-5ef4-401b-a478-ce0f2b61cd1e",
-  "version": "0.0.0.71",
-  "configVersion": "0.0.0.72",
+  "version": "0.0.0.100",
+  "configVersion": "0.0.0.98",
   "policies": [
     "StrictPropertyValidation"
   ],
@@ -53,6 +53,56 @@
             "$ref": "tchmi:general#/definitions/String"
           }
         ]
+      }
+    },
+    "Diagnostics": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "function": true,
+        "readOnly": true,
+        "transient": true,
+        "type": "object",
+        "properties": {
+          "DBconnectionstate": {
+            "allOf": [
+              {
+                "$ref": "tchmi:general#/definitions/String"
+              },
+              {
+                "readOnly": true,
+                "propertyOrder": 1,
+                "displayClass": "%"
+              }
+            ]
+          },
+          "DBversion": {
+            "allOf": [
+              {
+                "$ref": "tchmi:general#/definitions/FLOAT"
+              },
+              {
+                "readOnly": true,
+                "propertyOrder": 2,
+                "displayClass": "%"
+              }
+            ]
+          },
+          "cpuUsage": {
+            "allOf": [
+              {
+                "$ref": "tchmi:general#/definitions/FLOAT"
+              },
+              {
+                "readOnly": true,
+                "propertyOrder": 3,
+                "displayClass": "%"
+              }
+            ]
+          }
+        }
       }
     }
   }

@@ -8,7 +8,9 @@
     "username": "User Name",
     "userpassword": "User Password",
     "DBconnectionstate": "DB Connection State",
-    "DBversion":  "DB Version"
+    "DBversion": "DB Version",
+    "cpuUsage": "CPU usage"
+
 
   }
 }

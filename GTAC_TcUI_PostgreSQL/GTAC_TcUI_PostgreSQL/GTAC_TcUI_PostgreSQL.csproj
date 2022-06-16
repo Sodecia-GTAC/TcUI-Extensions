@@ -41,10 +41,17 @@
 
 	<PropertyGroup>
 		<ProjectGuid>0542e480-5ef4-401b-a478-ce0f2b61cd1e</ProjectGuid>
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <WarningLevel>5</WarningLevel>
 	</PropertyGroup>
 
 	<ItemGroup>
 	  <PackageReference Include="Npgsql" Version="6.0.4" />
+	  <PackageReference Include="System.Data.Odbc" Version="6.0.0" />
+	  <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="6.0.1" />
 	</ItemGroup>
 
 </Project>

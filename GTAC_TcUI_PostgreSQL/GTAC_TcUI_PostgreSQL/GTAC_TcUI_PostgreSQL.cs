@@ -7,6 +7,7 @@
 //-----------------------------------------------------------------------
 
 using System;
+using System.Diagnostics;
 using System.Data.Odbc;
 
 using TcHmiSrv.Core;
@@ -22,12 +23,12 @@ namespace GTAC_TcUI_PostgreSQL
     public class GTAC_TcUI_PostgreSQL : IServerExtension
     {
         private readonly RequestListener _requestListener = new RequestListener();
+        private readonly PerformanceCounter _cpuUsage = new PerformanceCounter("Processor", "% Processor Time", "_Total");
 
- 
+
         // Called after the TwinCAT HMI server loaded the server extension.
         public ErrorValue Init()
         {
-            //this.requestListener.OnRequest += this.OnRequest;
             _requestListener.OnRequest += OnRequest;
 
             return ErrorValue.HMI_SUCCESS;
@@ -38,12 +39,15 @@ namespace GTAC_TcUI_PostgreSQL
         //-----------------------------------------------------------------
         
         //---------- Server Extension Diagnostics -------------
-        private Value CollectDiagnosticsData()
+        private Value CollectDiagnosticsData(Command command)
         {
+            CONNECT(command);
+
             return new Value
             {
-                { "DBconnectionstate", "Connected!" },
-                { "DBversion", "1.6.9"  }
+                { "DBconnectionstate", command.ReadValue },
+                { "DBversion", "1.6.9"  },
+                { "cpuUsage", _cpuUsage.NextValue() }
             };
         }
 
@@ -59,7 +63,7 @@ namespace GTAC_TcUI_PostgreSQL
             //DEBUG build temp password
             string password = "temp";
 
-            //DEBUG NPGSQL method
+            /*------ NPGSQL method
             //Build connection string using parameters from TcHmi Server Configuration
            
             string connectionString =
@@ -72,28 +76,31 @@ namespace GTAC_TcUI_PostgreSQL
                     password);
 
             //Trial connect to DB
-            var conn = new NpgsqlConnection(connectionString);
+            //var connObject = new NpgsqlConnection(connectionString);
             
-
-            /*DEBUG ODBC Method
-
-            string connectionString = "Driver={PostgreSQL UNICODE};Port=5432;Server=localhost;Database=UI;Uid=postgres;Pwd=temp;";
-           
-            OdbcConnection connection = new OdbcConnection(connectString);
-
-            connection.Open();
-
-            string sql = "select version()";
-            OdbcCommand cmd = new OdbcCommand(sql, connection);
-
-            OdbcDataReader dr = cmd.ExecuteReader();
-            dr.Read();
-            string dbVersion = dr.GetString(0);
+            //DEBUG 
+            var connObject = true;
             */
 
-            if (conn != null)
+            //---------- ODBC Method
+
+
+            string connectionString = "Driver={PostgreSQL UNICODE};Port=5432;Server=localhost;Database=UI;Uid=postgres;Pwd=camp1234;";
+           
+            OdbcConnection connObject = new OdbcConnection(connectionString);
+
+            connObject.Open();
+
+            //string sql = "select version()";
+            //OdbcCommand cmd = new OdbcCommand(sql, connObject);
+            //OdbcDataReader dr = cmd.ExecuteReader();
+            //dr.Read();
+            //string dbVersion = dr.GetString(0);
+            
+
+            if (connObject != null)
             {
-                command.ReadValue = "Success! -> Connected to DB";
+                command.ReadValue = "Success -> Connected to DB!";
                 command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLSuccess;
 
             }
@@ -136,7 +143,7 @@ namespace GTAC_TcUI_PostgreSQL
                         {
                             //Sever Extension Diagnostics I
                             case "Diagnostics":
-                                command.ReadValue = CollectDiagnosticsData();
+                                command.ReadValue = CollectDiagnosticsData(command);
                                 break;
                                 
                             //Connect to DB Server
@@ -146,12 +153,12 @@ namespace GTAC_TcUI_PostgreSQL
 
                             //Read Data from Database
                             case "SELECT":
-                                CONNECT(command);
+                                SELECT(command);
                                 break;
 
                             //Write Data to Database
                             case "INSERT":
-                                CONNECT(command);
+                                INSERT(command);
                                 break;
 
                             //Default case
