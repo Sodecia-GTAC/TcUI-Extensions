@@ -127,7 +127,7 @@ namespace GTAC_TcUI_PostgreSQL
         }
 
         //------------- Get Connected Status -------------
-        private Boolean CONNECTION(Command command)
+        private Boolean getCONNECTED(Command command)
         {
             return connected;
         }
@@ -177,8 +177,8 @@ namespace GTAC_TcUI_PostgreSQL
                                 break;
 
                             //Get Connected Status
-                            case "CONNECTION":
-                                CONNECTION(command);
+                            case "CONNECTED":
+                                getCONNECTED(command);
                                 break;
 
                             //Default case
