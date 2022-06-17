@@ -7,8 +7,8 @@
     "Port": "Port",
     "username": "User Name",
     "userpassword": "User Password",
-    "DBconnectionstate": "DB Connection State",
-    "DBversion": "DB Version",
+    "DBconnectionstate": "DB Connection State (Database)",
+    "DBversion": "PostgreSQL Version",
     "cpuUsage": "CPU usage"
 
 

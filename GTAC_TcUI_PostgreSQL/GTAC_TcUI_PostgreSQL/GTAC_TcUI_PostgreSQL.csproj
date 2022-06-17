@@ -4,12 +4,11 @@
 		<TargetFramework>net5.0</TargetFramework>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 		<AssemblyName>GTAC_TcUI_PostgreSQL</AssemblyName>
-		<Platforms>AnyCPU</Platforms>
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<Company>Brent Lekx-Toniolo Consulting</Company>
-		<Description>TcHmi Server Extension for interacting with a PostgreSQL Database</Description>
+		<Company>BLT Consulting</Company>
+		<Description>TcHmi Server Extension for interacting with PostgreSQL Database</Description>
 		<Copyright>Copyright © Brent Lekx-Toniolo 2022</Copyright>
 	</PropertyGroup>
 
@@ -40,17 +39,12 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<ProjectGuid>0542e480-5ef4-401b-a478-ce0f2b61cd1e</ProjectGuid>
-		<EnableNETAnalyzers>true</EnableNETAnalyzers>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-	  <WarningLevel>5</WarningLevel>
+		<ProjectGuid>a4eb6faa-95b3-4040-ae2f-922fa9c4eed1</ProjectGuid>
+		<Version>0.0.0.169</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
 	  <PackageReference Include="Npgsql" Version="6.0.4" />
-	  <PackageReference Include="System.Data.Odbc" Version="6.0.0" />
 	  <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="6.0.1" />
 	</ItemGroup>
 

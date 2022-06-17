@@ -8,7 +8,6 @@
 
 using System;
 using System.Diagnostics;
-using System.Data.Odbc;
 
 using TcHmiSrv.Core;
 using TcHmiSrv.Core.General;
@@ -25,6 +24,9 @@ namespace GTAC_TcUI_PostgreSQL
         private readonly RequestListener _requestListener = new RequestListener();
         private readonly PerformanceCounter _cpuUsage = new PerformanceCounter("Processor", "% Processor Time", "_Total");
 
+        //Create Npgsql connection object
+        private NpgsqlConnection connObject;
+        private bool connected;
 
         // Called after the TwinCAT HMI server loaded the server extension.
         public ErrorValue Init()
@@ -41,12 +43,20 @@ namespace GTAC_TcUI_PostgreSQL
         //---------- Server Extension Diagnostics -------------
         private Value CollectDiagnosticsData(Command command)
         {
+            //First close established connections
+            if (connected)
+            {
+                CLOSE(command);
+                connected = false;
+            }
+            //Re-establish new connection
             CONNECT(command);
 
+            //Return connection diagnostic data
             return new Value
             {
                 { "DBconnectionstate", command.ReadValue },
-                { "DBversion", "1.6.9"  },
+                { "DBversion", command.ResultString},
                 { "cpuUsage", _cpuUsage.NextValue() }
             };
         }
@@ -60,12 +70,12 @@ namespace GTAC_TcUI_PostgreSQL
             string DB = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "DB");
             string Port = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "Port");
             string username = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "username");
-            //DEBUG build temp password
-            string password = "temp";
+            //DEBUG temp internalize password
+            string password = "badpassword";
 
-            /*------ NPGSQL method
+            //------ NPGSQL connection --------
+
             //Build connection string using parameters from TcHmi Server Configuration
-           
             string connectionString =
                 String.Format(
                     "Server={0};Username={1};Database={2};Port={3};Password={4};SSLMode=Prefer",
@@ -75,38 +85,25 @@ namespace GTAC_TcUI_PostgreSQL
                     Port,
                     password);
 
-            //Trial connect to DB
-            //var connObject = new NpgsqlConnection(connectionString);
-            
-            //DEBUG 
-            var connObject = true;
-            */
+            //Assemble connection
+            connObject = new NpgsqlConnection(connectionString);
 
-            //---------- ODBC Method
-
-
-            string connectionString = "Driver={PostgreSQL UNICODE};Port=5432;Server=localhost;Database=UI;Uid=postgres;Pwd=camp1234;";
-           
-            OdbcConnection connObject = new OdbcConnection(connectionString);
-
-            connObject.Open();
-
-            //string sql = "select version()";
-            //OdbcCommand cmd = new OdbcCommand(sql, connObject);
-            //OdbcDataReader dr = cmd.ExecuteReader();
-            //dr.Read();
-            //string dbVersion = dr.GetString(0);
-            
-
-            if (connObject != null)
+            //Try and Open the connection, catch exceptions and respond as required
+            try
             {
-                command.ReadValue = "Success -> Connected to DB!";
+                connObject.Open();
+                command.ReadValue = connObject.State.ToString()+" ("+connObject.Database+")";
+                command.ResultString = connObject.PostgreSqlVersion.ToString();
                 command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLSuccess;
-
+                connected = true;
             }
-            else
+            catch (Exception e)
             {
-                command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLFail;
+                command.ReadValue = "Could not connect to DB ("+ e.Message +")";
+                command.ResultString = "N/A";
+                //command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLFail;
+                connected = false;
+
             }
 
         }
@@ -122,6 +119,19 @@ namespace GTAC_TcUI_PostgreSQL
         {
             //To be completed
         }
+
+        //------------- Close Connection -------------
+        private void CLOSE(Command command)
+        {
+            connObject.Close();
+        }
+
+        //------------- Get Connected Status -------------
+        private Boolean CONNECTION(Command command)
+        {
+            return connected;
+        }
+
         //-----------------------------------------------------------------
         //------------------------------------------------------------------------
         //------------------------------------------------------------------------
@@ -159,6 +169,16 @@ namespace GTAC_TcUI_PostgreSQL
                             //Write Data to Database
                             case "INSERT":
                                 INSERT(command);
+                                break;
+
+                            //Close Conection
+                            case "CLOSE":
+                                CLOSE(command);
+                                break;
+
+                            //Get Connected Status
+                            case "CONNECTION":
+                                CONNECTION(command);
                                 break;
 
                             //Default case

@@ -1,8 +1,8 @@
 ﻿{
   "$schema": "ExtensionSettings.Schema.json",
   "guid": "0542e480-5ef4-401b-a478-ce0f2b61cd1e",
-  "version": "0.0.0.101",
-  "configVersion": "0.0.0.99",
+  "version": "0.0.0.102",
+  "configVersion": "0.0.0.101",
   "policies": [
     "StrictPropertyValidation"
   ],
@@ -40,6 +40,38 @@
       }
     },
     "INSERT": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
+    "CLOSE": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
+    "CONNECTED": {
       "userGroups": [
         "__SystemUsers"
       ],
