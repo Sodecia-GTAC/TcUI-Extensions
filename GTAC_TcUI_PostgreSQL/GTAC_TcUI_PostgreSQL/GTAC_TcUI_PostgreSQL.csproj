@@ -7,9 +7,9 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<Company>BLT Consulting</Company>
+		<Company>Sodecia GTAC</Company>
 		<Description>TcHmi Server Extension for interacting with PostgreSQL Database</Description>
-		<Copyright>Copyright © Brent Lekx-Toniolo 2022</Copyright>
+		<Copyright>Copyright © Brent Lekx-Toniolo, Chris Drees 2022</Copyright>
 	</PropertyGroup>
 
 	<PropertyGroup>

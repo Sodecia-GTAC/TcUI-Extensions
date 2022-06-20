@@ -47,7 +47,6 @@ namespace GTAC_TcUI_PostgreSQL
             if (connected)
             {
                 CLOSE(command);
-                connected = false;
             }
             //Re-establish new connection
             CONNECT(command);
@@ -65,71 +64,130 @@ namespace GTAC_TcUI_PostgreSQL
         //------------ Connect to DB ----------------
         private void CONNECT(Command command)
         {
-            //Retreive Server Extension parameters
-            string ServerAddr = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "AddrServer");
-            string DB = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "DB");
-            string Port = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "Port");
-            string username = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "username");
-            //DEBUG temp internalize password
-            string password = "badpassword";
-
-            //------ NPGSQL connection --------
-
-            //Build connection string using parameters from TcHmi Server Configuration
-            string connectionString =
-                String.Format(
-                    "Server={0};Username={1};Database={2};Port={3};Password={4};SSLMode=Prefer",
-                    ServerAddr,
-                    username,
-                    DB,
-                    Port,
-                    password);
-
-            //Assemble connection
-            connObject = new NpgsqlConnection(connectionString);
-
-            //Try and Open the connection, catch exceptions and respond as required
-            try
+            //Connection is already established so simply pass data
+            if (connected)
             {
-                connObject.Open();
-                command.ReadValue = connObject.State.ToString()+" ("+connObject.Database+")";
+                command.ReadValue = connObject.State.ToString() + " (" + connObject.Database + ")";
                 command.ResultString = connObject.PostgreSqlVersion.ToString();
                 command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLSuccess;
-                connected = true;
             }
-            catch (Exception e)
+            //Otherwise (no connection) create new connection 
+            else
             {
-                command.ReadValue = "Could not connect to DB ("+ e.Message +")";
-                command.ResultString = "N/A";
-                //command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLFail;
-                connected = false;
+                //Retreive Server Extension parameters
+                string ServerAddr = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "AddrServer");
+                string DB = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "DB");
+                string Port = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "Port");
+                string username = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "username");
+                //DEBUG temp internalize password
+                string password = "badpassword";
 
+                //------ NPGSQL connection --------
+
+                //Build connection string using parameters from TcHmi Server Configuration
+                string connectionString =
+                    String.Format(
+                        "Server={0};Username={1};Database={2};Port={3};Password={4};SSLMode=Prefer",
+                        ServerAddr,
+                        username,
+                        DB,
+                        Port,
+                        password);
+
+                //Assemble connection
+                connObject = new NpgsqlConnection(connectionString);
+
+                //Try and Open the connection, catch exceptions and respond as required
+                try
+                {
+                    connObject.Open();
+                    command.ReadValue = connObject.State.ToString() + " (" + connObject.Database + ")";
+                    command.ResultString = connObject.PostgreSqlVersion.ToString();
+                    command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLSuccess;
+                    connected = true;
+                }
+                catch (Exception e)
+                {
+                    command.ReadValue = "Could not connect to DB (" + e.Message + ")";
+                    command.ResultString = "N/A";
+                    //command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLFail;
+                    connected = false;
+
+                }
             }
-
         }
-
+        
         //------------ Read data from DB --------------
-        private void SELECT(Command command)
+        private async void SELECT(Command command, string SQL_query)
         {
-            //To be completed
+            if (connected)
+            {
+                //DEBUG, not complete
+                await using var SQLreadcommand = new NpgsqlCommand(SQL_query, connObject);
+                await using var DBreader = await SQLreadcommand.ExecuteReaderAsync();
+
+                while (await DBreader.ReadAsync())
+                {
+                    command.ReadValue = DBreader.GetValue(2).ToString();
+
+                }
+
+                //Final Resource Clean-up / Garbage collection
+                //await SQLreadcommand.DisposeAsync();
+                //await DBreader.DisposeAsync();
+            }
+            else
+            {
+                command.ReadValue = "Not connected to DB";
+            }
         }
 
         //------------- Write data to DB -----------------
-        private void INSERT(Command command)
+        private async void INSERT(Command command)
         {
-            //To be completed
+            if (connected)
+            {
+                //DEBUG, not complete
+                await using var SQLwritecommand = new NpgsqlCommand("INSERT INTO public.brent_test_table (description) VALUES ($1), ($2)", connObject)
+                {
+                    Parameters =
+                    {
+                    new() { Value = "Brent_Value1" },
+                    new() { Value = "Brent_Value2" }
+                    }
+                };
+
+                try
+                {
+                    await SQLwritecommand.ExecuteNonQueryAsync();
+                    command.ReadValue = "Wrote to DB";
+                }
+                catch (Exception e)
+                {
+                    command.ReadValue = "Could not write to DB (" + e.Message + ")";
+
+                }
+                //Final Resource Clean-up / Garbage collection
+                //await SQLwritecommand.DisposeAsync();
+            }
+            else
+            {
+                //Add error handling for an INSERT request with no DB connection
+            }
         }
 
         //------------- Close Connection -------------
         private void CLOSE(Command command)
         {
             connObject.Close();
+            connObject.Dispose();
+            connected = false;
         }
 
         //------------- Get Connected Status -------------
-        private Boolean getCONNECTED(Command command)
+        private void CONNECTED(Command command)
         {
-            return connected;
+            command.ReadValue = connected;
         }
 
         //-----------------------------------------------------------------
@@ -163,7 +221,8 @@ namespace GTAC_TcUI_PostgreSQL
 
                             //Read Data from Database
                             case "SELECT":
-                                SELECT(command);
+                                string temp = "SELECT * FROM public.fieldbus_descr_rxx_kukatype6x_in LIMIT 1";
+                                SELECT(command, temp);
                                 break;
 
                             //Write Data to Database
@@ -178,7 +237,7 @@ namespace GTAC_TcUI_PostgreSQL
 
                             //Get Connected Status
                             case "CONNECTED":
-                                getCONNECTED(command);
+                                CONNECTED(command);
                                 break;
 
                             //Default case

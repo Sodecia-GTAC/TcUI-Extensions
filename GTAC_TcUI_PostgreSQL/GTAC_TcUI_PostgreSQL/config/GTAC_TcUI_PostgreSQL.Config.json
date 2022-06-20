@@ -1,8 +1,8 @@
 ﻿{
   "$schema": "ExtensionSettings.Schema.json",
   "guid": "0542e480-5ef4-401b-a478-ce0f2b61cd1e",
-  "version": "0.0.0.102",
-  "configVersion": "0.0.0.102",
+  "version": "0.0.0.103",
+  "configVersion": "0.0.0.109",
   "policies": [
     "StrictPropertyValidation"
   ],
@@ -83,6 +83,22 @@
           },
           {
             "$ref": "tchmi:general#/definitions/Boolean"
+          }
+        ]
+      }
+    },
+    "TARGET": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": false
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
           }
         ]
       }

@@ -2,9 +2,9 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>GTAC_TcUI_PostgreSQL</id>
-    <version>0.0.0.169</version>
+    <version>0.0.0.103</version>
     <title>$Sodecia GTAC TcUI PostgreSQL Server Extension$</title>
-    <authors>Brent Lekx-Toniolo</authors>
+    <authors>Brent Lekx-Toniolo, Chris Drees</authors>
     <owners>Sodeica GTAC</owners>
     <projectUrl>http://www.tbd.tld</projectUrl>
     <license type="file">LICENSE.txt</license>
