@@ -43,7 +43,7 @@ namespace GTAC_TcUI_PostgreSQL
         //---------- Server Extension Diagnostics -------------
         private Value CollectDiagnosticsData(Command command)
         {
-            //First close established connections
+            //First close pre-established connections
             if (connected)
             {
                 CLOSE(command);
@@ -57,7 +57,9 @@ namespace GTAC_TcUI_PostgreSQL
                 { "DBconnectionstate", command.ReadValue },
                 { "DBversion", command.ResultString},
                 { "cpuUsage", _cpuUsage.NextValue() }
+
             };
+
         }
 
 
@@ -79,8 +81,8 @@ namespace GTAC_TcUI_PostgreSQL
                 string DB = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "DB");
                 string Port = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "Port");
                 string username = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "username");
-                //DEBUG temp internalize password
-                string password = "badpassword";
+                //DEBUG must encrypt at entry point
+                string password = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "userpassword");
 
                 //------ NPGSQL connection --------
 
@@ -133,8 +135,8 @@ namespace GTAC_TcUI_PostgreSQL
                 }
 
                 //Final Resource Clean-up / Garbage collection
-                //await SQLreadcommand.DisposeAsync();
-                //await DBreader.DisposeAsync();
+                await SQLreadcommand.DisposeAsync();
+                await DBreader.DisposeAsync();
             }
             else
             {
@@ -168,7 +170,7 @@ namespace GTAC_TcUI_PostgreSQL
 
                 }
                 //Final Resource Clean-up / Garbage collection
-                //await SQLwritecommand.DisposeAsync();
+                await SQLwritecommand.DisposeAsync();
             }
             else
             {
@@ -212,6 +214,8 @@ namespace GTAC_TcUI_PostgreSQL
                             //Sever Extension Diagnostics I
                             case "Diagnostics":
                                 command.ReadValue = CollectDiagnosticsData(command);
+                                //Afterwards, close connection as the diagnostics method is intended for set-up troubleshooting only
+                                CLOSE(command);
                                 break;
                                 
                             //Connect to DB Server

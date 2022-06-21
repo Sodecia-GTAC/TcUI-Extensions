@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>GTAC_TcUI_PostgreSQL</id>
-    <version>0.0.0.103</version>
+    <version>0.0.0.171</version>
     <title>$Sodecia GTAC TcUI PostgreSQL Server Extension$</title>
     <authors>Brent Lekx-Toniolo, Chris Drees</authors>
     <owners>Sodeica GTAC</owners>
@@ -15,10 +15,9 @@
     <copyright>Copyright 2022</copyright>
     <tags>TwinCAT HMI Server</tags>
     <dependencies>
-      <group targetFramework="netcoreapp3.1">
-        <!-- Package dependencies -->
-		   <dependency id="Npgsql" version="6.0.4" />
-	       <dependancy id= "System.Diagnostics.PerformanceCounter" version="6.0.1"/>
+      <group targetFramework="net5.0">
+        <dependency id="Npgsql" version="6.0.4" exclude="Build,Analyzers" />
+        <dependency id="System.Diagnostics.PerformanceCounter" version="6.0.1" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>
@@ -29,6 +28,8 @@
     <file src="LICENSE.txt" target="" />
     <file src="bin\Debug\**\GTAC_TcUI_PostgreSQL.dll" target="runtimes\any\native\"/>
     <file src="bin\Debug\**\GTAC_TcUI_PostgreSQL.*.json" target="runtimes\any\native\"/>
-    <file src="images\logo.png" target="images\" />
+    <file src="bin\Debug\**\Npgsql.dll" target="runtimes\any\native\"/>
+
+	  <file src="images\logo.png" target="images\" />
   </files>
 </package>
