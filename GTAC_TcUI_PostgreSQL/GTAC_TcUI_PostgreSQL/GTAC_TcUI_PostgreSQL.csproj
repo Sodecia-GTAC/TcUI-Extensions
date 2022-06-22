@@ -40,11 +40,11 @@
 
 	<PropertyGroup>
 		<ProjectGuid>a4eb6faa-95b3-4040-ae2f-922fa9c4eed1</ProjectGuid>
-		<Version>0.0.0.169</Version>
+		<Version>0.0.1.1</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Npgsql" Version="6.0.4" />
+	  <PackageReference Include="Npgsql" Version="6.0.5" />
 	  <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="6.0.1" />
 	</ItemGroup>
 
