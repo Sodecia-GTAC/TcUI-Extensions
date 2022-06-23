@@ -8,14 +8,14 @@
       "default": "localhost"
     },
 
-    "DB": {
-      "type": "string",
-      "default": "postgres"
-    },
-
     "Port": {
       "type": "string",
       "default": "5432"
+    },
+
+    "DB": {
+      "type": "string",
+      "default": "postgres"
     },
 
     "username": {

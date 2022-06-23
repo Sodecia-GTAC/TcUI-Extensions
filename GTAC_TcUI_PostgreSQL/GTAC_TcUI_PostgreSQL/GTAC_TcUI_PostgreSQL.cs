@@ -24,7 +24,7 @@ namespace GTAC_TcUI_PostgreSQL
         private readonly RequestListener _requestListener = new RequestListener();
         private readonly PerformanceCounter _cpuUsage = new PerformanceCounter("Processor", "% Processor Time", "_Total");
 
-        //Create Npgsql connection object
+        //Create Npgsql connection object and connected flag place holders
         private NpgsqlConnection connObject;
         private bool connected;
 
@@ -64,43 +64,38 @@ namespace GTAC_TcUI_PostgreSQL
 
 
         //------------ Connect to DB ----------------
-        private void CONNECT(Command command)
+        private async void CONNECT(Command command)
         {
-            //Connection is already established so simply pass data
-            if (connected)
-            {
-                command.ReadValue = connObject.State.ToString() + " (" + connObject.Database + ")";
-                command.ResultString = connObject.PostgreSqlVersion.ToString();
-                command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLSuccess;
-            }
-            //Otherwise (no connection) create new connection 
-            else
+            //If no connection, create new connection and open 
+            if (connected != true)
             {
                 //Retreive Server Extension parameters
                 string ServerAddr = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "AddrServer");
-                string DB = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "DB");
                 string Port = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "Port");
+                string DB = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "DB");
                 string username = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "username");
                 //DEBUG must encrypt at entry point
                 string password = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "userpassword");
+
+                //Some connection paramters
+                string connTimeout = "2";
+                string cmdTimeout = "3";
+
 
                 //------ NPGSQL connection --------
 
                 //Build connection string using parameters from TcHmi Server Configuration
                 string connectionString =
-                    String.Format(
-                        "Server={0};Username={1};Database={2};Port={3};Password={4};SSLMode=Prefer",
-                        ServerAddr,
-                        username,
-                        DB,
-                        Port,
-                        password);
+                    "Host="+ServerAddr+ ";Port = "+Port+ ";Database=" + DB + ";Username =" + username+";Password="+password+ ";Timeout="+connTimeout+";CommandTimeout="+cmdTimeout+";";
+
 
                 //Assemble connection
                 connObject = new NpgsqlConnection(connectionString);
 
-                //Try and Open the connection, catch exceptions and respond as required
-                try
+                //Set some parameters
+                
+                //Try and open a connection, catch exceptions and respond as required
+                try 
                 {
                     connObject.Open();
                     command.ReadValue = connObject.State.ToString() + " (" + connObject.Database + ")";
@@ -110,21 +105,31 @@ namespace GTAC_TcUI_PostgreSQL
                 }
                 catch (Exception e)
                 {
-                    command.ReadValue = "Could not connect to DB (" + e.Message + ")";
+                    command.ReadValue = "No Connection ("+e.Message+")";
                     command.ResultString = "N/A";
                     //command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLFail;
                     connected = false;
-
                 }
+                
             }
+            //Connection is already established so simply pass data
+            else
+            {
+                command.ReadValue = connObject.State.ToString() + " (" + connObject.Database + ")";
+                command.ResultString = connObject.PostgreSqlVersion.ToString();
+                command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLSuccess;
+            }
+
         }
-        
+
         //------------ Read data from DB --------------
         private async void SELECT(Command command, string SQL_query)
         {
+            
             if (connected)
             {
                 //DEBUG, not complete
+                
                 await using var SQLreadcommand = new NpgsqlCommand(SQL_query, connObject);
                 await using var DBreader = await SQLreadcommand.ExecuteReaderAsync();
 
@@ -146,10 +151,11 @@ namespace GTAC_TcUI_PostgreSQL
 
         //------------- Write data to DB -----------------
         private async void INSERT(Command command)
-        {
+        {   
             if (connected)
             {
                 //DEBUG, not complete
+                
                 await using var SQLwritecommand = new NpgsqlCommand("INSERT INTO public.brent_test_table (description) VALUES ($1), ($2)", connObject)
                 {
                     Parameters =
