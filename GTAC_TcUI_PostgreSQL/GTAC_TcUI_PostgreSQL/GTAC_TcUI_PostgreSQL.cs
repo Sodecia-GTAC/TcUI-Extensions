@@ -24,13 +24,13 @@ namespace GTAC_TcUI_PostgreSQL
         private readonly RequestListener _requestListener = new RequestListener();
 
         //Some connection paramters
-        private string connTimeout = "2";
-        private string cmdTimeout = "3";
+        string connTimeout = "2";
+        string cmdTimeout = "3";
 
 
         //Create Npgsql connection object and connected flag place holders
-        private NpgsqlConnection connObject;
-        private bool connected;
+        NpgsqlConnection connObject;
+        bool connected;
 
 
 
@@ -54,7 +54,7 @@ namespace GTAC_TcUI_PostgreSQL
             if (connected != true)
             {
                 //Retreive Server Extension parameters
-                string Host = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "Host");
+                string ServerAddr = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "AddrServer");
                 string Port = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "Port");
                 string DB = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "DB");
                 string username = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "username");
@@ -66,7 +66,7 @@ namespace GTAC_TcUI_PostgreSQL
 
                 //Build connection string using parameters from TcHmi Server Configuration
                 string connectionString =
-                    "Host="+Host+ ";Port = "+Port+ ";Database=" + DB + ";Username =" + username+";Password="+password+ ";Timeout="+connTimeout+";CommandTimeout="+cmdTimeout+";";
+                    "Host="+ServerAddr+ ";Port = "+Port+ ";Database=" + DB + ";Username =" + username+";Password="+password+ ";Timeout="+connTimeout+";CommandTimeout="+cmdTimeout+";";
 
 
                 //Assemble connection
@@ -179,26 +179,23 @@ namespace GTAC_TcUI_PostgreSQL
         //------------- Get Host -------------
         private void getHOST(Command command)
         {
-            command.ReadValue = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "Host");
+            command.ReadValue = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "AddrServer");
         }
 
         //------------- Get Port -------------
         private void getPORT(Command command)
         {
-            //command.ReadValue = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "Port");
-            command.ReadValue = "HI1";
+            command.ReadValue = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "Port");
         }
         //------------- Get Host -------------
         private void getDB(Command command)
         {
-            //command.ReadValue = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "DB");
-            command.ReadValue = "HI2";
+            command.ReadValue = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "DB");
         }
         //------------- Get Host -------------
         private void getUSER(Command command)
         {
-            //command.ReadValue = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "username");
-            command.ReadValue = "HI3";
+            command.ReadValue = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "username");
         }
 
         //------------- Get Connected Status -------------

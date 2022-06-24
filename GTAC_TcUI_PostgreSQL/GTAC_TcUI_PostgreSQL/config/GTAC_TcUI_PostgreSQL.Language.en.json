@@ -2,7 +2,7 @@
   "$schema": "Language.Schema.json",
   "locale": "en",
   "localizedText": {
-    "Host": "Host",
+    "AddrServer": "DB Server Address",
     "Port": "Port",
     "DB": "Database",
     "username": "User Name",
