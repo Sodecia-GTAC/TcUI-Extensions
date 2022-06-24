@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>GTAC_TcUI_PostgreSQL</id>
-    <version>0.0.1.1</version>
+    <version>0.0.1.2</version>
     <title>$Sodecia GTAC TcUI PostgreSQL Server Extension$</title>
     <authors>Brent Lekx-Toniolo, Chris Drees</authors>
     <owners>Sodeica GTAC</owners>
@@ -17,7 +17,6 @@
     <dependencies>
       <group targetFramework="net5.0">
         <dependency id="Npgsql" version="6.0.4" exclude="Build,Analyzers" />
-        <dependency id="System.Diagnostics.PerformanceCounter" version="6.0.1" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>

@@ -22,11 +22,17 @@ namespace GTAC_TcUI_PostgreSQL
     public class GTAC_TcUI_PostgreSQL : IServerExtension
     {
         private readonly RequestListener _requestListener = new RequestListener();
-        private readonly PerformanceCounter _cpuUsage = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+
+        //Some connection paramters
+        private string connTimeout = "2";
+        private string cmdTimeout = "3";
+
 
         //Create Npgsql connection object and connected flag place holders
         private NpgsqlConnection connObject;
         private bool connected;
+
+
 
         // Called after the TwinCAT HMI server loaded the server extension.
         public ErrorValue Init()
@@ -40,29 +46,7 @@ namespace GTAC_TcUI_PostgreSQL
         // Custom Methods for use in this Server Extension, b.lekx-toniolo
         //-----------------------------------------------------------------
         
-        //---------- Server Extension Diagnostics -------------
-        private Value CollectDiagnosticsData(Command command)
-        {
-            //First close pre-established connections
-            if (connected)
-            {
-                CLOSE(command);
-            }
-            //Re-establish new connection
-            CONNECT(command);
-
-            //Return connection diagnostic data
-            return new Value
-            {
-                { "DBconnectionstate", command.ReadValue },
-                { "DBversion", command.ResultString},
-                { "cpuUsage", _cpuUsage.NextValue() }
-
-            };
-
-        }
-
-
+  
         //------------ Connect to DB ----------------
         private async void CONNECT(Command command)
         {
@@ -70,23 +54,19 @@ namespace GTAC_TcUI_PostgreSQL
             if (connected != true)
             {
                 //Retreive Server Extension parameters
-                string ServerAddr = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "AddrServer");
+                string Host = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "Host");
                 string Port = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "Port");
                 string DB = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "DB");
                 string username = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "username");
                 //DEBUG must encrypt at entry point
                 string password = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "userpassword");
 
-                //Some connection paramters
-                string connTimeout = "2";
-                string cmdTimeout = "3";
-
 
                 //------ NPGSQL connection --------
 
                 //Build connection string using parameters from TcHmi Server Configuration
                 string connectionString =
-                    "Host="+ServerAddr+ ";Port = "+Port+ ";Database=" + DB + ";Username =" + username+";Password="+password+ ";Timeout="+connTimeout+";CommandTimeout="+cmdTimeout+";";
+                    "Host="+Host+ ";Port = "+Port+ ";Database=" + DB + ";Username =" + username+";Password="+password+ ";Timeout="+connTimeout+";CommandTimeout="+cmdTimeout+";";
 
 
                 //Assemble connection
@@ -192,10 +172,49 @@ namespace GTAC_TcUI_PostgreSQL
             connected = false;
         }
 
-        //------------- Get Connected Status -------------
-        private void CONNECTED(Command command)
+        //------------------------------------------------------
+        //------------------ Get Status Methods ----------------
+        //------------------------------------------------------
+
+        //------------- Get Host -------------
+        private void getHOST(Command command)
         {
-            command.ReadValue = connected;
+            command.ReadValue = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "Host");
+        }
+
+        //------------- Get Port -------------
+        private void getPORT(Command command)
+        {
+            //command.ReadValue = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "Port");
+            command.ReadValue = "HI1";
+        }
+        //------------- Get Host -------------
+        private void getDB(Command command)
+        {
+            //command.ReadValue = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "DB");
+            command.ReadValue = "HI2";
+        }
+        //------------- Get Host -------------
+        private void getUSER(Command command)
+        {
+            //command.ReadValue = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "username");
+            command.ReadValue = "HI3";
+        }
+
+        //------------- Get Connected Status -------------
+        private void getCONNECTED(Command command)
+        {
+            
+            if (connObject.State.ToString() == "Open")
+            {
+                command.ReadValue = true;
+
+            }
+            else
+            {
+                command.ReadValue = false;
+            }
+
         }
 
         //-----------------------------------------------------------------
@@ -217,13 +236,8 @@ namespace GTAC_TcUI_PostgreSQL
                         // Use the mapping to check which command is requested
                         switch (command.Mapping)
                         {
-                            //Sever Extension Diagnostics I
-                            case "Diagnostics":
-                                command.ReadValue = CollectDiagnosticsData(command);
-                                //Afterwards, close connection as the diagnostics method is intended for set-up troubleshooting only
-                                CLOSE(command);
-                                break;
-                                
+                            
+                            //-------- Functional Method calls ---------    
                             //Connect to DB Server
                             case "CONNECT":
                                 CONNECT(command);
@@ -245,10 +259,33 @@ namespace GTAC_TcUI_PostgreSQL
                                 CLOSE(command);
                                 break;
 
-                            //Get Connected Status
-                            case "CONNECTED":
-                                CONNECTED(command);
+
+                            //-------- Getter Method Calls ------
+                            //Get Host Value
+                            case "getHOST":
+                                getHOST(command);
                                 break;
+ 
+                            //Get Port Value
+                            case "getPORT":
+                                getPORT(command);
+                                break;
+                            
+                            //Get DB Value
+                            case "getDB":
+                                getDB(command);
+                                break;
+                            
+                            //Get User Value
+                            case "getUSER":
+                                getUSER(command);
+                                break;
+
+                            //Get Connected Status
+                            case "getCONNECTED":
+                                getCONNECTED(command);
+                                break;
+
 
                             //Default case
                             default:

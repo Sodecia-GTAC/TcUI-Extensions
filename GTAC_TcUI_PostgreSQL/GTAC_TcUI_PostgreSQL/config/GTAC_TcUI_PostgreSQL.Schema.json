@@ -3,7 +3,7 @@
   "type": "object",
   "properties": {
 
-    "AddrServer": {
+    "Host": {
       "type": "string",
       "default": "localhost"
     },

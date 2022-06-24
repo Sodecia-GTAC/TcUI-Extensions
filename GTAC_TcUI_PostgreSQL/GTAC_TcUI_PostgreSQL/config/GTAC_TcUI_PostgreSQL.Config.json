@@ -1,8 +1,8 @@
 ﻿{
   "$schema": "ExtensionSettings.Schema.json",
   "guid": "0542e480-5ef4-401b-a478-ce0f2b61cd1e",
-  "version": "0.0.1.1",
-  "configVersion": "0.0.0.3",
+  "version": "0.0.1.2",
+  "configVersion": "0.0.0.2",
   "policies": [
     "StrictPropertyValidation"
   ],
@@ -71,22 +71,6 @@
         ]
       }
     },
-    "CONNECTED": {
-      "userGroups": [
-        "__SystemUsers"
-      ],
-      "hidden": false,
-      "readValue": {
-        "allOf": [
-          {
-            "function": true
-          },
-          {
-            "$ref": "tchmi:general#/definitions/Boolean"
-          }
-        ]
-      }
-    },
     "TARGET": {
       "userGroups": [
         "__SystemUsers"
@@ -103,54 +87,84 @@
         ]
       }
     },
-    "Diagnostics": {
+    "getHOST": {
       "userGroups": [
         "__SystemUsers"
       ],
       "hidden": false,
       "readValue": {
-        "function": true,
-        "readOnly": true,
-        "transient": true,
-        "type": "object",
-        "properties": {
-          "DBconnectionstate": {
-            "allOf": [
-              {
-                "$ref": "tchmi:general#/definitions/String"
-              },
-              {
-                "readOnly": true,
-                "propertyOrder": 1,
-                "displayClass": "%"
-              }
-            ]
+        "allOf": [
+          {
+            "function": true
           },
-          "DBversion": {
-            "allOf": [
-              {
-                "$ref": "tchmi:general#/definitions/FLOAT"
-              },
-              {
-                "readOnly": true,
-                "propertyOrder": 2,
-                "displayClass": "%"
-              }
-            ]
-          },
-          "cpuUsage": {
-            "allOf": [
-              {
-                "$ref": "tchmi:general#/definitions/FLOAT"
-              },
-              {
-                "readOnly": true,
-                "propertyOrder": 3,
-                "displayClass": "%"
-              }
-            ]
+          {
+            "$ref": "tchmi:general#/definitions/String"
           }
-        }
+        ]
+      }
+    },
+    "getPORT": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
+    "getDB": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
+    "getUSER": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
+    "getCONNECTED": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/Boolean"
+          }
+        ]
       }
     }
   }

@@ -2,15 +2,12 @@
   "$schema": "Language.Schema.json",
   "locale": "en",
   "localizedText": {
-    "AddrServer": "Address of Server",
-    "DB": "Database",
+    "Host": "Host",
     "Port": "Port",
+    "DB": "Database",
     "username": "User Name",
     "userpassword": "User Password",
     "DBconnectionstate": "DB Connection State (Database)",
-    "DBversion": "PostgreSQL Version",
-    "cpuUsage": "CPU usage"
-
-
+    "DBversion": "PostgreSQL Version"
   }
 }
