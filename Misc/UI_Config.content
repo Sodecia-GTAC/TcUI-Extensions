@@ -1,0 +1,1202 @@
+﻿<div id="Content1_3" data-tchmi-type="TcHmi.Controls.System.TcHmiContent" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="1024" data-tchmi-height="670" data-tchmi-creator-viewport-width="1024" data-tchmi-creator-viewport-height="670" data-tchmi-is-enabled="true">
+<div data-tchmi-grid-row-index="0" data-tchmi-grid-column-index="0" id="TcHmiTextblock_UIThemeTitle" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="399" data-tchmi-left-unit="px" data-tchmi-text="%l%title_UITheme%/l%" data-tchmi-top="92" data-tchmi-top-unit="px" data-tchmi-width="199" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-is-enabled="true" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-vertical-alignment="Center" data-tchmi-text-font-size="20" data-tchmi-zindex="3">
+</div>
+<div data-tchmi-grid-row-index="0" data-tchmi-grid-column-index="0" id="TcHmiTextblock_LanguageTitle" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="399" data-tchmi-left-unit="px" data-tchmi-text="%l%title_Lang%/l%" data-tchmi-top="232" data-tchmi-top-unit="px" data-tchmi-width="199" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-is-enabled="true" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-vertical-alignment="Center" data-tchmi-text-font-size="20" data-tchmi-zindex="3">
+</div>
+<div id="TcHmiImage_29" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiImage" data-tchmi-height="40" data-tchmi-height-unit="px" data-tchmi-left="984" data-tchmi-left-unit="px" data-tchmi-top="52" data-tchmi-top-unit="px" data-tchmi-width="40" data-tchmi-width-unit="px" data-tchmi-src="Images/GTAC/Icons/ico_ui_conf.jpg" data-tchmi-zindex="5">
+
+</div>
+<div data-tchmi-grid-row-index="0" data-tchmi-grid-column-index="0" id="TcHmiTextblock_DbTItle" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="361" data-tchmi-left-unit="px" data-tchmi-text="Database Connection Information" data-tchmi-top="419" data-tchmi-top-unit="px" data-tchmi-width="317" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-is-enabled="true" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-vertical-alignment="Center" data-tchmi-text-font-size="20" data-tchmi-zindex="3">
+</div>
+<div id="TcHmiCombobox_3" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiCombobox" data-tchmi-combobox-text="%f%GetTheme()%/f%" data-tchmi-height="44" data-tchmi-height-unit="px" data-tchmi-left="278" data-tchmi-left-unit="px" data-tchmi-top="128" data-tchmi-top-unit="px" data-tchmi-width="441" data-tchmi-width-unit="px" data-tchmi-allow-text-input="false" data-tchmi-is-enabled="true" data-tchmi-text-horizontal-alignment="Center" data-tchmi-ignore-escape-sequences="false" data-tchmi-text-font-size="20">
+<script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
+{"top":3,"right":3,"bottom":3,"left":3}
+</script>
+
+
+<script data-tchmi-target-attribute="data-tchmi-src-data" type="application/json">
+[
+  {
+    "id": 0.0,
+    "text": "Classic-Dark",
+    "value": "Classic-Dark"
+  },
+  {
+    "id": 1.0,
+    "text": "Classic-Light",
+    "value": "Classic-Light"
+  },
+  {
+    "id": 2.0,
+    "text": "Classic-Sodecia",
+    "value": "Classic-Sodecia"
+  },
+  {
+    "id": 3.0,
+    "text": "Modern-Dark",
+    "value": "Modern-Dark"
+  },
+  {
+    "id": 4.0,
+    "text": "Modern-Light",
+    "value": "Modern-Light"
+  },
+  {
+    "id": 5.0,
+    "text": "Modern-Sodecia",
+    "value": "Modern-Sodecia"
+  }
+]
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-class-names" type="application/json">
+[
+  "Radius"
+]
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "TcHmiCombobox_3.onSelectionChanged",
+    "actions": [
+      {
+        "objectType": "Function",
+        "active": true,
+        "fn": "TcHmi.Functions.Beckhoff.SetTheme",
+        "fnParams": [
+          {
+            "objectType": "Symbol",
+            "valueType": "tchmi:framework#/definitions/ThemeName",
+            "symbolExpression": "%ctrl%TcHmiCombobox_3::SelectedText%/ctrl%"
+          }
+        ],
+        "asyncWait": true
+      },
+      {
+        "objectType": "Function",
+        "active": true,
+        "fn": "TcHmi.Functions.ICxx.GTAC_BakeCookie",
+        "fnParams": [
+          {
+            "objectType": "StaticValue",
+            "valueType": "tchmi:general#/definitions/String",
+            "value": "ThemeSelected"
+          },
+          {
+            "objectType": "Symbol",
+            "valueType": "tchmi:general#/definitions/String",
+            "symbolExpression": "%ctrl%TcHmiCombobox_3::SelectedText%/ctrl%"
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  }
+]
+</script>
+</div>
+<div id="ICxx_ID" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiCombobox" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="72" data-tchmi-left-unit="px" data-tchmi-top="46" data-tchmi-top-unit="px" data-tchmi-width="65" data-tchmi-width-unit="px" data-tchmi-allow-text-input="false" data-tchmi-is-enabled="true" data-tchmi-text-horizontal-alignment="Center" data-tchmi-selected-id="" data-tchmi-combobox-text="" data-tchmi-selected-index="%f%%i%ICxx_Value%/i%-1%/f%">
+<script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
+{"top":3,"right":3,"bottom":3,"left":3}
+</script>
+
+
+<script data-tchmi-target-attribute="data-tchmi-src-data" type="application/json">
+[
+  {
+    "id": 0.0,
+    "text": "1",
+    "value": 1.0
+  },
+  {
+    "id": 1.0,
+    "text": "2",
+    "value": 2.0
+  },
+  {
+    "id": 2.0,
+    "text": "3",
+    "value": 3.0
+  },
+  {
+    "id": 3.0,
+    "text": "4",
+    "value": 4.0
+  },
+  {
+    "id": 4.0,
+    "text": "5",
+    "value": 5.0
+  },
+  {
+    "id": 5.0,
+    "text": "6",
+    "value": 6.0
+  },
+  {
+    "id": 6.0,
+    "text": "7",
+    "value": 7.0
+  },
+  {
+    "id": 7.0,
+    "text": "8",
+    "value": 8.0
+  }
+]
+</script>
+
+
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "ICxx_ID.onSelectionChanged",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%i%ICxx_Value%/i%",
+        "value": {
+          "objectType": "Symbol",
+          "valueType": "tchmi:general#/definitions/String",
+          "symbolExpression": "%ctrl%ICxx_ID::SelectedValue%/ctrl%"
+        },
+        "asyncWait": true
+      },
+      {
+        "objectType": "Function",
+        "active": true,
+        "fn": "TcHmi.Functions.ICxx.GTAC_BakeCookie",
+        "fnParams": [
+          {
+            "objectType": "StaticValue",
+            "valueType": "tchmi:general#/definitions/String",
+            "value": "ICxxValue"
+          },
+          {
+            "objectType": "Symbol",
+            "valueType": "tchmi:general#/definitions/Any",
+            "symbolExpression": "%i%ICxx_Value%/i%"
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  }
+]
+</script>
+</div>
+<div id="TcHmiTextblock_874" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="10" data-tchmi-left-unit="px" data-tchmi-top="10" data-tchmi-top-unit="px" data-tchmi-width="202" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-is-enabled="true" data-tchmi-text="This is the ICs designated ID number" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-vertical-alignment="Center">
+</div>
+<div id="TcHmiCombobox_4" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiCombobox" data-tchmi-combobox-text="%i%LocalName%/i%" data-tchmi-height="44" data-tchmi-height-unit="px" data-tchmi-left="278" data-tchmi-left-unit="px" data-tchmi-top="281" data-tchmi-top-unit="px" data-tchmi-width="441" data-tchmi-width-unit="px" data-tchmi-allow-text-input="false" data-tchmi-text-horizontal-alignment="Center" data-tchmi-is-enabled="true" data-tchmi-max-list-height="350" data-tchmi-text-font-size="20" data-tchmi-ignore-escape-sequences="false">
+<script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
+{"top":3,"right":3,"bottom":3,"left":3}
+</script>
+
+
+<script data-tchmi-target-attribute="data-tchmi-src-data" type="application/json">
+[
+  {
+    "id": 0.0,
+    "text": "%l%English%/l%",
+    "value": "en-US"
+  },
+  {
+    "id": 1.0,
+    "text": "%l%Chinese%/l%",
+    "value": "zh-HK"
+  },
+  {
+    "id": 2.0,
+    "text": "%l%Czech%/l%",
+    "value": "cs-CZ"
+  },
+  {
+    "id": 3.0,
+    "text": "%l%French%/l%",
+    "value": "fr-FR"
+  },
+  {
+    "id": 4.0,
+    "text": "%l%German%/l%",
+    "value": "de-DE"
+  },
+  {
+    "id": 5.0,
+    "text": "%l%Hindi%/l%",
+    "value": "hi-IN"
+  },
+  {
+    "id": 6.0,
+    "text": "%l%Italian%/l%",
+    "value": "it-IT"
+  },
+  {
+    "id": 7.0,
+    "text": "%l%Japanese%/l%",
+    "value": "ja-JP"
+  },
+  {
+    "id": 8.0,
+    "text": "%l%Portugese%/l%",
+    "value": "pt-BR"
+  },
+  {
+    "id": 9.0,
+    "text": "%l%Russian%/l%",
+    "value": "ru-RU"
+  },
+  {
+    "id": 10.0,
+    "text": "%l%Spanish%/l%",
+    "value": "es-MX"
+  }
+]
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "TcHmiCombobox_4.onSelectionChanged",
+    "actions": [
+      {
+        "objectType": "Function",
+        "active": true,
+        "fn": "TcHmi.Functions.Beckhoff.SetLocaleEx",
+        "fnParams": [
+          {
+            "objectType": "Symbol",
+            "valueType": "tchmi:general#/definitions/ProjectLocale",
+            "symbolExpression": "%ctrl%TcHmiCombobox_4::SelectedValue%/ctrl%"
+          }
+        ],
+        "asyncWait": true
+      },
+      {
+        "objectType": "Function",
+        "active": true,
+        "fn": "TcHmi.Functions.ICxx.GTAC_BakeCookie",
+        "fnParams": [
+          {
+            "objectType": "StaticValue",
+            "valueType": "tchmi:general#/definitions/String",
+            "value": "Locale"
+          },
+          {
+            "objectType": "Symbol",
+            "valueType": "tchmi:general#/definitions/Any",
+            "symbolExpression": "%ctrl%TcHmiCombobox_4::SelectedValue%/ctrl%"
+          }
+        ],
+        "asyncWait": true
+      },
+      {
+        "objectType": "SwitchCase",
+        "active": true,
+        "compare": {
+          "objectType": "Symbol",
+          "valueType": "tchmi:general#/definitions/String",
+          "symbolExpression": "%ctrl%TcHmiCombobox_4::SelectedValue%/ctrl%"
+        },
+        "cases": [
+          {
+            "caseValue": {
+              "objectType": "StaticValue",
+              "valueType": "tchmi:general#/definitions/String",
+              "value": "en-US"
+            },
+            "actions": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%i%LocalName%/i%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/String",
+                  "value": "English"
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "caseValue": {
+              "objectType": "StaticValue",
+              "valueType": "tchmi:general#/definitions/String",
+              "value": "zh-HK"
+            },
+            "actions": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%i%LocalName%/i%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/String",
+                  "value": "Chinese"
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "caseValue": {
+              "objectType": "StaticValue",
+              "valueType": "tchmi:general#/definitions/String",
+              "value": "cz-CZ"
+            },
+            "actions": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%i%LocalName%/i%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/String",
+                  "value": "Czech"
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "caseValue": {
+              "objectType": "StaticValue",
+              "valueType": "tchmi:general#/definitions/String",
+              "value": "fr-FR"
+            },
+            "actions": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%i%LocalName%/i%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/String",
+                  "value": "French"
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "caseValue": {
+              "objectType": "StaticValue",
+              "valueType": "tchmi:general#/definitions/String",
+              "value": "de-DE"
+            },
+            "actions": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%i%LocalName%/i%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/String",
+                  "value": "German"
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "caseValue": {
+              "objectType": "StaticValue",
+              "valueType": "tchmi:general#/definitions/String",
+              "value": "hi-IN"
+            },
+            "actions": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%i%LocalName%/i%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/String",
+                  "value": "Hindi"
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "caseValue": {
+              "objectType": "StaticValue",
+              "valueType": "tchmi:general#/definitions/String",
+              "value": "it-IT"
+            },
+            "actions": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%i%LocalName%/i%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/String",
+                  "value": "Italian"
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "caseValue": {
+              "objectType": "StaticValue",
+              "valueType": "tchmi:general#/definitions/String",
+              "value": "ja-JP"
+            },
+            "actions": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%i%LocalName%/i%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/String",
+                  "value": "Japanese"
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "caseValue": {
+              "objectType": "StaticValue",
+              "valueType": "tchmi:general#/definitions/String",
+              "value": "pt-BR"
+            },
+            "actions": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%i%LocalName%/i%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/String",
+                  "value": "Portugese"
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "caseValue": {
+              "objectType": "StaticValue",
+              "valueType": "tchmi:general#/definitions/String",
+              "value": "ru-RU"
+            },
+            "actions": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%i%LocalName%/i%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/String",
+                  "value": "Russian"
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "caseValue": {
+              "objectType": "StaticValue",
+              "valueType": "tchmi:general#/definitions/String",
+              "value": "es-MX"
+            },
+            "actions": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%i%LocalName%/i%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/String",
+                  "value": "Spanish"
+                },
+                "asyncWait": true
+              }
+            ]
+          }
+        ],
+        "asyncWait": true
+      },
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%i%PDF_Path%/i%",
+        "value": {
+          "objectType": "FunctionExpression",
+          "functionExpression": "\"Contents/Misc Screens/Doc Screens/PDFs/default_\"+%i%LocalName%/i%+\".pdf\""
+        },
+        "asyncWait": true
+      }
+    ]
+  }
+]
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-class-names" type="application/json">
+[
+  "Radius"
+]
+</script>
+</div>
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "Content1_3.onAttached",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%i%PDF_Path%/i%",
+        "value": {
+          "objectType": "FunctionExpression",
+          "functionExpression": "\"Contents/Misc Screens/Doc Screens/PDFs/default_\"+%i%LocalName%/i%+\".pdf\""
+        },
+        "asyncWait": true
+      }
+    ]
+  }
+]
+</script>
+<div id="TcHmiRectangle_18" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="5" data-tchmi-height-unit="px" data-tchmi-left="105" data-tchmi-left-unit="px" data-tchmi-top="378" data-tchmi-top-unit="px" data-tchmi-width="814" data-tchmi-width-unit="px" data-tchmi-is-enabled="true">
+<script data-tchmi-target-attribute="data-tchmi-stroke-color" type="application/json">
+{
+  "color": "rgba(183, 177, 177, 1)"
+}
+</script>
+</div>
+<div data-tchmi-grid-row-index="0" data-tchmi-grid-column-index="0" id="TcHmiTextblock_DBConfTitle" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="31" data-tchmi-left-unit="px" data-tchmi-top="467" data-tchmi-top-unit="px" data-tchmi-width="421" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-is-enabled="true" data-tchmi-text-horizontal-alignment="Left" data-tchmi-text-vertical-alignment="Center" data-tchmi-text-font-size="20" data-tchmi-zindex="3" data-tchmi-text-font-size-unit="px" data-tchmi-text="Configuration for DB Connection:">
+</div>
+<div data-tchmi-grid-row-index="0" data-tchmi-grid-column-index="0" id="TcHmiTextblock_DBServerAddr" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="45" data-tchmi-left-unit="px" data-tchmi-text="Host:" data-tchmi-top="503" data-tchmi-top-unit="px" data-tchmi-width="213" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-is-enabled="true" data-tchmi-text-horizontal-alignment="Left" data-tchmi-text-vertical-alignment="Center" data-tchmi-text-font-size="14" data-tchmi-zindex="3" data-tchmi-text-font-size-unit="px">
+</div>
+<div id="TcHmiTextbox_DBAddr" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextbox" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="268" data-tchmi-left-unit="px" data-tchmi-top="503" data-tchmi-top-unit="px" data-tchmi-width="169" data-tchmi-width-unit="px" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-font-size="14" data-tchmi-placeholder="waiting for data" data-tchmi-is-enabled="true" data-tchmi-word-wrap="false" data-tchmi-multiline="false" data-tchmi-text-font-size-unit="px" data-tchmi-auto-focus-out="false" data-tchmi-auto-select-text="false" data-tchmi-text="%s%GTAC_TcUI_PostgreSQL.getHOST%/s%">
+<script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
+{
+  "top": 3,
+  "right": 3,
+  "bottom": 3,
+  "left": 3
+}
+</script>
+
+
+
+
+
+
+
+
+<script data-tchmi-target-attribute="data-tchmi-border-color" type="application/json">
+{
+  "color": "rgba(0, 0, 0, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-text-color" type="application/json">
+{
+  "color": "rgba(0, 0, 0, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
+{
+  "color": "rgba(255, 255, 255, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-class-names" type="application/json">
+[
+  "Radius"
+]
+</script>
+</div>
+<div data-tchmi-grid-row-index="0" data-tchmi-grid-column-index="0" id="TcHmiTextblock_DBStatusTitle" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="553" data-tchmi-left-unit="px" data-tchmi-top="467" data-tchmi-top-unit="px" data-tchmi-width="421" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-is-enabled="true" data-tchmi-text-horizontal-alignment="Left" data-tchmi-text-vertical-alignment="Center" data-tchmi-text-font-size="20" data-tchmi-zindex="3" data-tchmi-text-font-size-unit="px" data-tchmi-text="DB Connection Diagnostics">
+</div>
+<div data-tchmi-grid-row-index="0" data-tchmi-grid-column-index="0" id="TcHmiTextblock_DBConnection" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="568" data-tchmi-left-unit="px" data-tchmi-text="Connected:" data-tchmi-top="503" data-tchmi-top-unit="px" data-tchmi-width="213" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-is-enabled="true" data-tchmi-text-horizontal-alignment="Left" data-tchmi-text-vertical-alignment="Center" data-tchmi-text-font-size="14" data-tchmi-zindex="3" data-tchmi-text-font-size-unit="px">
+</div>
+<div id="TcHmiTextbox_DBConnected" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextbox" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="791" data-tchmi-left-unit="px" data-tchmi-top="503" data-tchmi-top-unit="px" data-tchmi-width="169" data-tchmi-width-unit="px" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-font-size="14" data-tchmi-placeholder="waiting for data" data-tchmi-is-enabled="true" data-tchmi-word-wrap="false" data-tchmi-multiline="false" data-tchmi-text-font-size-unit="px" data-tchmi-auto-focus-out="false" data-tchmi-auto-select-text="false" data-tchmi-text="%s%GTAC_TcUI_PostgreSQL.getCONNECTED%/s%">
+<script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
+{
+  "top": 3,
+  "right": 3,
+  "bottom": 3,
+  "left": 3
+}
+</script>
+
+
+
+
+
+
+
+
+<script data-tchmi-target-attribute="data-tchmi-border-color" type="application/json">
+{
+  "color": "rgba(0, 0, 0, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-text-color" type="application/json">
+{
+  "color": "rgba(0, 0, 0, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
+{
+  "color": "rgba(255, 255, 255, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-class-names" type="application/json">
+[
+  "Radius"
+]
+</script>
+</div>
+<div data-tchmi-grid-row-index="0" data-tchmi-grid-column-index="0" id="TcHmiTextblock_DBConnectionState" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="568" data-tchmi-left-unit="px" data-tchmi-text="Connection State (Database)" data-tchmi-top="539" data-tchmi-top-unit="px" data-tchmi-width="213" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-is-enabled="true" data-tchmi-text-horizontal-alignment="Left" data-tchmi-text-vertical-alignment="Center" data-tchmi-text-font-size="14" data-tchmi-zindex="3" data-tchmi-text-font-size-unit="px">
+</div>
+<div id="TcHmiTextbox_DBConnectionState" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextbox" data-tchmi-height="45" data-tchmi-height-unit="px" data-tchmi-left="791" data-tchmi-left-unit="px" data-tchmi-top="539" data-tchmi-top-unit="px" data-tchmi-width="169" data-tchmi-width-unit="px" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-font-size="12" data-tchmi-placeholder="waiting for data" data-tchmi-is-enabled="true" data-tchmi-word-wrap="true" data-tchmi-multiline="true" data-tchmi-text-font-size-unit="px" data-tchmi-auto-focus-out="false" data-tchmi-auto-select-text="false" data-tchmi-ignore-escape-sequences="false" data-tchmi-text="%s%GTAC_TcUI_PostgreSQL.CONNECT%/s%">
+<script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
+{
+  "top": 3,
+  "right": 3,
+  "bottom": 3,
+  "left": 3
+}
+</script>
+
+
+
+
+
+
+
+
+<script data-tchmi-target-attribute="data-tchmi-border-color" type="application/json">
+{
+  "color": "rgba(0, 0, 0, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-text-color" type="application/json">
+{
+  "color": "rgba(0, 0, 0, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
+{
+  "color": "rgba(255, 255, 255, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-class-names" type="application/json">
+[
+  "Radius"
+]
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "TcHmiTextbox_DBConnectionState.onDetached",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%ctrl%TcHmiTextbox_DBConnectionState::Text%/ctrl%",
+        "value": {
+          "objectType": "Symbol",
+          "valueType": "tchmi:general#/definitions/String",
+          "symbolExpression": "%s%GTAC_TcUI_PostgreSQL.CLOSE%/s%"
+        },
+        "asyncWait": true
+      }
+    ]
+  }
+]
+</script>
+</div>
+<div data-tchmi-grid-row-index="0" data-tchmi-grid-column-index="0" id="TcHmiTextblock_DBName" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="45" data-tchmi-left-unit="px" data-tchmi-text="Database:" data-tchmi-top="575" data-tchmi-top-unit="px" data-tchmi-width="213" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-is-enabled="true" data-tchmi-text-horizontal-alignment="Left" data-tchmi-text-vertical-alignment="Center" data-tchmi-text-font-size="14" data-tchmi-zindex="3" data-tchmi-text-font-size-unit="px">
+</div>
+<div id="TcHmiTextbox_DBName" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextbox" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="268" data-tchmi-left-unit="px" data-tchmi-top="575" data-tchmi-top-unit="px" data-tchmi-width="169" data-tchmi-width-unit="px" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-font-size="14" data-tchmi-placeholder="waiting for data" data-tchmi-is-enabled="true" data-tchmi-word-wrap="false" data-tchmi-multiline="false" data-tchmi-text-font-size-unit="px" data-tchmi-auto-focus-out="false" data-tchmi-auto-select-text="false" data-tchmi-text="%s%GTAC_TcUI_PostgreSQL.getDB%/s%">
+<script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
+{
+  "top": 3,
+  "right": 3,
+  "bottom": 3,
+  "left": 3
+}
+</script>
+
+
+
+
+
+
+
+
+<script data-tchmi-target-attribute="data-tchmi-border-color" type="application/json">
+{
+  "color": "rgba(0, 0, 0, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-text-color" type="application/json">
+{
+  "color": "rgba(0, 0, 0, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
+{
+  "color": "rgba(255, 255, 255, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-class-names" type="application/json">
+[
+  "Radius"
+]
+</script>
+</div>
+<div data-tchmi-grid-row-index="0" data-tchmi-grid-column-index="0" id="TcHmiTextblock_DBport" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="45" data-tchmi-left-unit="px" data-tchmi-text="Port:" data-tchmi-top="539" data-tchmi-top-unit="px" data-tchmi-width="213" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-is-enabled="true" data-tchmi-text-horizontal-alignment="Left" data-tchmi-text-vertical-alignment="Center" data-tchmi-text-font-size="14" data-tchmi-zindex="3" data-tchmi-text-font-size-unit="px">
+</div>
+<div id="TcHmiTextbox_DBport" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextbox" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="268" data-tchmi-left-unit="px" data-tchmi-top="539" data-tchmi-top-unit="px" data-tchmi-width="169" data-tchmi-width-unit="px" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-font-size="14" data-tchmi-placeholder="waiting for data" data-tchmi-is-enabled="true" data-tchmi-word-wrap="false" data-tchmi-multiline="false" data-tchmi-text-font-size-unit="px" data-tchmi-auto-focus-out="false" data-tchmi-auto-select-text="false" data-tchmi-text="%s%GTAC_TcUI_PostgreSQL.getPORT%/s%">
+<script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
+{
+  "top": 3,
+  "right": 3,
+  "bottom": 3,
+  "left": 3
+}
+</script>
+
+
+
+
+
+
+
+
+<script data-tchmi-target-attribute="data-tchmi-border-color" type="application/json">
+{
+  "color": "rgba(0, 0, 0, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-text-color" type="application/json">
+{
+  "color": "rgba(0, 0, 0, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
+{
+  "color": "rgba(255, 255, 255, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-class-names" type="application/json">
+[
+  "Radius"
+]
+</script>
+</div>
+<div data-tchmi-grid-row-index="0" data-tchmi-grid-column-index="0" id="TcHmiTextblock_DBusername" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="45" data-tchmi-left-unit="px" data-tchmi-text="User Name:" data-tchmi-top="611" data-tchmi-top-unit="px" data-tchmi-width="213" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-is-enabled="true" data-tchmi-text-horizontal-alignment="Left" data-tchmi-text-vertical-alignment="Center" data-tchmi-text-font-size="14" data-tchmi-zindex="3" data-tchmi-text-font-size-unit="px">
+</div>
+<div id="TcHmiTextbox_DBusername" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextbox" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="268" data-tchmi-left-unit="px" data-tchmi-top="611" data-tchmi-top-unit="px" data-tchmi-width="169" data-tchmi-width-unit="px" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-font-size="14" data-tchmi-placeholder="waiting for data" data-tchmi-is-enabled="true" data-tchmi-word-wrap="false" data-tchmi-multiline="false" data-tchmi-text-font-size-unit="px" data-tchmi-auto-focus-out="false" data-tchmi-auto-select-text="false" data-tchmi-text="%s%GTAC_TcUI_PostgreSQL.getUSER%/s%">
+<script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
+{
+  "top": 3,
+  "right": 3,
+  "bottom": 3,
+  "left": 3
+}
+</script>
+
+
+
+
+
+
+
+
+<script data-tchmi-target-attribute="data-tchmi-border-color" type="application/json">
+{
+  "color": "rgba(0, 0, 0, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-text-color" type="application/json">
+{
+  "color": "rgba(0, 0, 0, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
+{
+  "color": "rgba(255, 255, 255, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-class-names" type="application/json">
+[
+  "Radius"
+]
+</script>
+</div>
+<div data-tchmi-grid-row-index="0" data-tchmi-grid-column-index="0" id="PB_DB_TestRead" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="27" data-tchmi-height-unit="px" data-tchmi-left="568" data-tchmi-left-unit="px" data-tchmi-text="DB Test Read" data-tchmi-top="601" data-tchmi-top-unit="px" data-tchmi-width="110" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-vertical-alignment="Center" data-tchmi-text-font-size="14" data-tchmi-text-font-weight="Bold" data-tchmi-zindex="2" data-tchmi-state-symbol="%f%%/f%" data-tchmi-is-enabled="true">
+<script data-tchmi-target-attribute="data-tchmi-text-color" type="application/json">
+{
+  "color": "rgba(0, 0, 0, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-class-names" type="application/json">
+[
+  "Radius"
+]
+</script>
+
+
+
+<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
+{
+  "color": "rgba(177, 177, 177, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "PbSpeed25_1.onPressed",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%s%PLC1..In_From_ICxx::Global_Robot_Speed%/s%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:general#/definitions/BYTE",
+          "value": 25
+        },
+        "asyncWait": true
+      }
+    ]
+  },
+  {
+    "event": "PbSpeed75_1.onPressed",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%s%PLC1..In_From_ICxx::Global_Robot_Speed%/s%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:general#/definitions/BYTE",
+          "value": 75
+        },
+        "asyncWait": true
+      }
+    ]
+  },
+  {
+    "event": "PbSpeedPlus5_1.onPressed",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/String",
+                  "symbolExpression": "%s%PLC1..In_From_ICxx::Global_Robot_Speed%/s%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/BYTE",
+                  "value": 100
+                },
+                "compareOperator": ">",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%s%PLC1..In_From_ICxx::Global_Robot_Speed%/s%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/BYTE",
+                  "value": 100
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%s%PLC1..In_From_ICxx::Global_Robot_Speed%/s%",
+                "value": {
+                  "objectType": "FunctionExpression",
+                  "functionExpression": "%s%PLC1..In_From_ICxx::Global_Robot_Speed%/s% +5\\n"
+                },
+                "asyncWait": true
+              }
+            ]
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  },
+  {
+    "event": "PB_DB_TestRead.onPressed",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%ctrl%TcHmiTextbox_DBTestRead::Text%/ctrl%",
+        "value": {
+          "objectType": "Symbol",
+          "valueType": "tchmi:general#/definitions/String",
+          "symbolExpression": "%s%GTAC_TcUI_PostgreSQL.READ%/s%"
+        },
+        "asyncWait": true
+      }
+    ]
+  }
+]
+</script>
+</div>
+<div id="TcHmiTextbox_DBTestRead" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextbox" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="688" data-tchmi-left-unit="px" data-tchmi-top="601" data-tchmi-top-unit="px" data-tchmi-width="272" data-tchmi-width-unit="px" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-font-size="14" data-tchmi-placeholder="waiting for data" data-tchmi-is-enabled="true" data-tchmi-word-wrap="false" data-tchmi-multiline="false" data-tchmi-text-font-size-unit="px" data-tchmi-auto-focus-out="false" data-tchmi-auto-select-text="false">
+<script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
+{
+  "top": 3,
+  "right": 3,
+  "bottom": 3,
+  "left": 3
+}
+</script>
+
+
+
+
+
+
+
+
+<script data-tchmi-target-attribute="data-tchmi-border-color" type="application/json">
+{
+  "color": "rgba(0, 0, 0, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-text-color" type="application/json">
+{
+  "color": "rgba(0, 0, 0, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
+{
+  "color": "rgba(255, 255, 255, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-class-names" type="application/json">
+[
+  "Radius"
+]
+</script>
+</div>
+<div data-tchmi-grid-row-index="0" data-tchmi-grid-column-index="0" id="PB_DB_TestWrite" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="27" data-tchmi-height-unit="px" data-tchmi-left="568" data-tchmi-left-unit="px" data-tchmi-text="DB Test Write" data-tchmi-top="637" data-tchmi-top-unit="px" data-tchmi-width="110" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-vertical-alignment="Center" data-tchmi-text-font-size="14" data-tchmi-text-font-weight="Bold" data-tchmi-zindex="2" data-tchmi-state-symbol="%f%%/f%" data-tchmi-is-enabled="true">
+<script data-tchmi-target-attribute="data-tchmi-text-color" type="application/json">
+{
+  "color": "rgba(0, 0, 0, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-class-names" type="application/json">
+[
+  "Radius"
+]
+</script>
+
+
+
+<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
+{
+  "color": "rgba(177, 177, 177, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "PbSpeed25_1.onPressed",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%s%PLC1..In_From_ICxx::Global_Robot_Speed%/s%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:general#/definitions/BYTE",
+          "value": 25
+        },
+        "asyncWait": true
+      }
+    ]
+  },
+  {
+    "event": "PbSpeed75_1.onPressed",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%s%PLC1..In_From_ICxx::Global_Robot_Speed%/s%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:general#/definitions/BYTE",
+          "value": 75
+        },
+        "asyncWait": true
+      }
+    ]
+  },
+  {
+    "event": "PbSpeedPlus5_1.onPressed",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/String",
+                  "symbolExpression": "%s%PLC1..In_From_ICxx::Global_Robot_Speed%/s%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/BYTE",
+                  "value": 100
+                },
+                "compareOperator": ">",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%s%PLC1..In_From_ICxx::Global_Robot_Speed%/s%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/BYTE",
+                  "value": 100
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%s%PLC1..In_From_ICxx::Global_Robot_Speed%/s%",
+                "value": {
+                  "objectType": "FunctionExpression",
+                  "functionExpression": "%s%PLC1..In_From_ICxx::Global_Robot_Speed%/s% +5\\n"
+                },
+                "asyncWait": true
+              }
+            ]
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  },
+  {
+    "event": "PB_DB_TestWrite.onPressed",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%ctrl%TcHmiTextbox_DBTestWrite::Text%/ctrl%",
+        "value": {
+          "objectType": "Symbol",
+          "valueType": "tchmi:general#/definitions/String",
+          "symbolExpression": "%s%GTAC_TcUI_PostgreSQL.WRITE%/s%"
+        },
+        "asyncWait": true
+      }
+    ]
+  }
+]
+</script>
+</div>
+<div id="TcHmiTextbox_DBTestWrite" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextbox" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="688" data-tchmi-left-unit="px" data-tchmi-top="637" data-tchmi-top-unit="px" data-tchmi-width="272" data-tchmi-width-unit="px" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-font-size="14" data-tchmi-placeholder="waiting for data" data-tchmi-is-enabled="true" data-tchmi-word-wrap="false" data-tchmi-multiline="false" data-tchmi-text-font-size-unit="px" data-tchmi-auto-focus-out="false" data-tchmi-auto-select-text="false">
+<script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
+{
+  "top": 3,
+  "right": 3,
+  "bottom": 3,
+  "left": 3
+}
+</script>
+
+
+
+
+
+
+
+
+<script data-tchmi-target-attribute="data-tchmi-border-color" type="application/json">
+{
+  "color": "rgba(0, 0, 0, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-text-color" type="application/json">
+{
+  "color": "rgba(0, 0, 0, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
+{
+  "color": "rgba(255, 255, 255, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-class-names" type="application/json">
+[
+  "Radius"
+]
+</script>
+</div>
+</div>
