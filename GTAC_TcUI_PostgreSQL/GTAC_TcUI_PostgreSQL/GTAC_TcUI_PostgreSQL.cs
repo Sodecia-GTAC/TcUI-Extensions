@@ -26,6 +26,7 @@ namespace GTAC_TcUI_PostgreSQL
         //Some connection paramters
         string connTimeout = "2";
         string cmdTimeout = "3";
+        string keepAlive = "10";
 
 
         //Create Npgsql connection object and connected flag place holders
@@ -66,7 +67,7 @@ namespace GTAC_TcUI_PostgreSQL
 
                 //Build connection string using parameters from TcHmi Server Configuration
                 string connectionString =
-                    "Host="+ServerAddr+ ";Port = "+Port+ ";Database=" + DB + ";Username =" + username+";Password="+password+ ";Timeout="+connTimeout+";CommandTimeout="+cmdTimeout+";";
+                    "Host="+ServerAddr+ ";Port = "+Port+ ";Database=" + DB + ";Username =" + username+";Password="+password+ ";Timeout="+connTimeout+";CommandTimeout="+cmdTimeout+";Keepalive="+keepAlive+";";
 
 
                 //Assemble connection
@@ -78,8 +79,7 @@ namespace GTAC_TcUI_PostgreSQL
                 try 
                 {
                     connObject.Open();
-                    command.ReadValue = connObject.State.ToString() + " (" + connObject.Database + ")";
-                    command.ResultString = connObject.PostgreSqlVersion.ToString();
+                    command.ReadValue = connObject.FullState.ToString() + " (" + connObject.Database + ")";
                     command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLSuccess;
                     connected = true;
                 }
@@ -87,26 +87,24 @@ namespace GTAC_TcUI_PostgreSQL
                 {
                     command.ReadValue = "No Connection ("+e.Message+")";
                     command.ResultString = "N/A";
-                    //command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLFail;
                     connected = false;
                 }
-                
+
             }
             //Connection is already established so simply pass data
             else
             {
-                command.ReadValue = connObject.State.ToString() + " (" + connObject.Database + ")";
-                command.ResultString = connObject.PostgreSqlVersion.ToString();
+                command.ReadValue = connObject.FullState.ToString() + " (" + connObject.Database + ")";
                 command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLSuccess;
             }
 
         }
 
         //------------ Read data from DB --------------
-        private async void SELECT(Command command, string SQL_query)
+        private async void READ(Command command, string SQL_query)
         {
             
-            if (connected)
+            if (connObject.State.ToString() == "Open")
             {
                 //DEBUG, not complete
                 
@@ -130,9 +128,9 @@ namespace GTAC_TcUI_PostgreSQL
         }
 
         //------------- Write data to DB -----------------
-        private async void INSERT(Command command)
+        private async void WRITE(Command command)
         {   
-            if (connected)
+            if (connObject.State.ToString() == "Open")
             {
                 //DEBUG, not complete
                 
@@ -168,7 +166,6 @@ namespace GTAC_TcUI_PostgreSQL
         private void CLOSE(Command command)
         {
             connObject.Close();
-            connObject.Dispose();
             connected = false;
         }
 
@@ -202,18 +199,19 @@ namespace GTAC_TcUI_PostgreSQL
         private void getCONNECTED(Command command)
         {
             
-            if (connObject.State.ToString() == "Open")
+            if (connObject.FullState.ToString() == "Open")
             {
+                connected = true;
                 command.ReadValue = true;
-
             }
             else
             {
+                connected = false;
                 command.ReadValue = false;
             }
-
+           
         }
-
+        
         //-----------------------------------------------------------------
         //------------------------------------------------------------------------
         //------------------------------------------------------------------------
@@ -241,14 +239,14 @@ namespace GTAC_TcUI_PostgreSQL
                                 break;
 
                             //Read Data from Database
-                            case "SELECT":
+                            case "READ":
                                 string temp = "SELECT * FROM public.fieldbus_descr_rxx_kukatype6x_in LIMIT 1";
-                                SELECT(command, temp);
+                                READ(command, temp);
                                 break;
 
                             //Write Data to Database
-                            case "INSERT":
-                                INSERT(command);
+                            case "WRITE":
+                                WRITE(command);
                                 break;
 
                             //Close Conection
@@ -286,21 +284,19 @@ namespace GTAC_TcUI_PostgreSQL
 
                             //Default case
                             default:
-                                command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLFail;
                                 command.ResultString = "Unknown command '" + command.Mapping + "' not handled.";
                                 break;
                         }
                     }
                     catch (Exception ex)
                     {
-                        command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLFail;
                         command.ResultString = "Calling command '" + command.Mapping + "' failed! Additional information: " + ex.ToString();
                     }
                 }
             }
             catch (Exception ex)
             {
-                throw new TcHmiException(ex.ToString(), ErrorValue.HMI_E_EXTENSION);
+                throw new TcHmiException("GTAC_TcUI_PostgreSQL TcHmi Error ->"+ex.Message.ToString(), ErrorValue.HMI_E_EXTENSION);
             }
         }
     }
