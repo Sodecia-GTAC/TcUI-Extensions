@@ -101,25 +101,34 @@ namespace GTAC_TcUI_PostgreSQL
         }
 
         //------------ Read data from DB --------------
-        private async void READ(Command command, string SQL_query)
+        private async void READ(Command command)
         {
             
             if (connObject.State.ToString() == "Open")
             {
-                //DEBUG, not complete
-                
-                await using var SQLreadcommand = new NpgsqlCommand(SQL_query, connObject);
-                await using var DBreader = await SQLreadcommand.ExecuteReaderAsync();
+                //Build SQL Query string 
+                string SQL_Query = "SELECT * FROM public.fieldbus_descr_rxx_kukatype6x_in LIMIT 1";
 
-                while (await DBreader.ReadAsync())
+                //Create a new Npgsql command
+                var SQLreadcommand = new NpgsqlCommand(SQL_Query, connObject);
+
+                //
+                using NpgsqlDataReader DBreaderObject = SQLreadcommand.ExecuteReader();
+                try
                 {
-                    command.ReadValue = DBreader.GetValue(2).ToString();
-
+                    while (DBreaderObject.Read())
+                    {
+                        command.ReadValue = DBreaderObject.GetValue(2).ToString();
+                    }
                 }
+                catch (Exception e)
+                {
+                    command.ReadValue = "Failed to read: " + e.Message;
+                } 
 
                 //Final Resource Clean-up / Garbage collection
-                await SQLreadcommand.DisposeAsync();
-                await DBreader.DisposeAsync();
+                SQLreadcommand.Dispose();
+                DBreaderObject.Dispose();
             }
             else
             {
@@ -240,8 +249,7 @@ namespace GTAC_TcUI_PostgreSQL
 
                             //Read Data from Database
                             case "READ":
-                                string temp = "SELECT * FROM public.fieldbus_descr_rxx_kukatype6x_in LIMIT 1";
-                                READ(command, temp);
+                                READ(command);
                                 break;
 
                             //Write Data to Database
