@@ -120,7 +120,7 @@ namespace GTAC_TcUI_PostgreSQL
                         using NpgsqlDataReader DBreaderObject = SQLreadcommand.ExecuteReader();
                         while (DBreaderObject.Read())
                         {
-                            command.ReadValue = DBreaderObject.GetValue(2).ToString();
+                            command.ReadValue = DBreaderObject.GetValue(0).ToString();
                         }
                         //Resource Clean-up / Garbage collection
                         DBreaderObject.Dispose();
