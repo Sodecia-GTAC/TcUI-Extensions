@@ -24,9 +24,9 @@ namespace GTAC_TcUI_PostgreSQL
         private readonly RequestListener _requestListener = new RequestListener();
 
         //Some connection paramters
-        string connTimeout = "2";
-        string cmdTimeout = "3";
-        string keepAlive = "10";
+        private readonly string connTimeout = "2";
+        private readonly string cmdTimeout = "3";
+        private readonly string keepAlive = "10";
 
 
         //Create Npgsql connection object and connected flag place holders
@@ -106,31 +106,39 @@ namespace GTAC_TcUI_PostgreSQL
         //------------ Read data from DB --------------
         private async void READ(Command command)
         {
-            
-            if (connObject.State.ToString() == "Open")
+
+            if (connObject.FullState.ToString() == "Open")
             {
-
-                //DEBUG, add in checks for query string validity
-                //Create a new Npgsql command
-                var SQLreadcommand = new NpgsqlCommand(rwQUERY, connObject);
-
-                //Create newe Data Read Object
-                using NpgsqlDataReader DBreaderObject = SQLreadcommand.ExecuteReader();
-                try
+                if (rwQUERY != null)
                 {
-                    while (DBreaderObject.Read())
+                    //Create a new Npgsql command
+                    var SQLreadcommand = new NpgsqlCommand(rwQUERY, connObject);
+
+                    try
                     {
-                        command.ReadValue = DBreaderObject.GetValue(2).ToString();
-                    }
-                }
-                catch (Exception e)
-                {
-                    command.ReadValue = "Failed to read: " + e.Message;
-                } 
+                        //Create newe Data Read Object
+                        using NpgsqlDataReader DBreaderObject = SQLreadcommand.ExecuteReader();
+                        while (DBreaderObject.Read())
+                        {
+                            command.ReadValue = DBreaderObject.GetValue(2).ToString();
+                        }
+                        //Resource Clean-up / Garbage collection
+                        DBreaderObject.Dispose();
 
-                //Final Resource Clean-up / Garbage collection
-                SQLreadcommand.Dispose();
-                DBreaderObject.Dispose();
+                    }
+                    catch (Exception e)
+                    {
+                        command.ReadValue = "Failed to read: " + e.Message;
+                    }
+
+                    //Final Resource Clean-up / Garbage collection
+                    SQLreadcommand.Dispose();
+  
+                }
+                else
+                {
+                    command.ReadValue = "QUERY string null, use setQUERY method before triggering READ";
+                }
             }
             else
             {
