@@ -1,8 +1,8 @@
 ﻿{
   "$schema": "ExtensionSettings.Schema.json",
   "guid": "0542e480-5ef4-401b-a478-ce0f2b61cd1e",
-  "version": "0.0.1.2",
-  "configVersion": "0.0.0.6",
+  "version": "0.0.1.5",
+  "configVersion": "0.0.0.10",
   "policies": [
     "StrictPropertyValidation"
   ],
@@ -79,7 +79,7 @@
       "readValue": {
         "allOf": [
           {
-            "function": false
+            "function": true
           },
           {
             "$ref": "tchmi:general#/definitions/String"
@@ -165,6 +165,41 @@
             "$ref": "tchmi:general#/definitions/Boolean"
           }
         ]
+      }
+    },
+    "getQUERY": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
+    "setQUERY": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      },
+      "writeValue": {
+        "type": "string"
       }
     }
   }

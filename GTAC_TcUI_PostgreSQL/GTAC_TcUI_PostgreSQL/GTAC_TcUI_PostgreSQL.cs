@@ -31,7 +31,10 @@ namespace GTAC_TcUI_PostgreSQL
 
         //Create Npgsql connection object and connected flag place holders
         NpgsqlConnection connObject;
-        bool connected;
+        private bool connected;
+
+        //Some internal variables
+        private string rwQUERY = null;
 
 
 
@@ -106,13 +109,12 @@ namespace GTAC_TcUI_PostgreSQL
             
             if (connObject.State.ToString() == "Open")
             {
-                //Build SQL Query string 
-                string SQL_Query = "SELECT * FROM public.fieldbus_descr_rxx_kukatype6x_in LIMIT 1";
 
+                //DEBUG, add in checks for query string validity
                 //Create a new Npgsql command
-                var SQLreadcommand = new NpgsqlCommand(SQL_Query, connObject);
+                var SQLreadcommand = new NpgsqlCommand(rwQUERY, connObject);
 
-                //
+                //Create newe Data Read Object
                 using NpgsqlDataReader DBreaderObject = SQLreadcommand.ExecuteReader();
                 try
                 {
@@ -204,6 +206,7 @@ namespace GTAC_TcUI_PostgreSQL
             command.ReadValue = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "username");
         }
 
+
         //------------- Get Connected Status -------------
         private void getCONNECTED(Command command)
         {
@@ -220,10 +223,34 @@ namespace GTAC_TcUI_PostgreSQL
             }
            
         }
-        
+
+        //------------- Get Current Query String-------------
+        private void getQUERY(Command command)
+        {
+            command.ReadValue = "Current Query String: "+ rwQUERY;
+        }
+
         //-----------------------------------------------------------------
         //------------------------------------------------------------------------
         //------------------------------------------------------------------------
+
+
+        //------------------------------------------------------
+        //------------------ Set Values Methods ----------------
+        //------------------------------------------------------
+
+        //------------- Set Table Target -------------
+        private void setQUERY(Command command)
+        {
+            rwQUERY = command.WriteValue;
+
+        }
+
+
+        //-----------------------------------------------------------------
+        //------------------------------------------------------------------------
+        //------------------------------------------------------------------------
+
 
 
         // Called when a client requests a symbol from the domain of the TwinCAT HMI server extension.
@@ -287,6 +314,17 @@ namespace GTAC_TcUI_PostgreSQL
                             //Get Connected Status
                             case "getCONNECTED":
                                 getCONNECTED(command);
+                                break;
+
+                            //Get Current Query string
+                            case "getQUERY":
+                                getQUERY(command);
+                                break;
+
+                            //-------- Setter Method Calls ------
+                            //Set QUERY STRING for Read or Write
+                            case "setQUERY":
+                                setQUERY(command);
                                 break;
 
 
