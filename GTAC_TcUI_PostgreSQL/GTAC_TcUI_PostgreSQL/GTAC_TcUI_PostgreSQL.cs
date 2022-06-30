@@ -104,7 +104,7 @@ namespace GTAC_TcUI_PostgreSQL
         }
 
         //------------ Read data from DB --------------
-        private async void READ(Command command)
+        private void READ(Command command)
         {
 
             if (connObject.FullState.ToString() == "Open")
@@ -122,18 +122,16 @@ namespace GTAC_TcUI_PostgreSQL
                         {
                             command.ReadValue = DBreaderObject.GetValue(0).ToString();
                         }
-                        //Resource Clean-up / Garbage collection
-                        DBreaderObject.Dispose();
-
+                      
                     }
                     catch (Exception e)
                     {
                         command.ReadValue = "Failed to read: " + e.Message;
                     }
-
+                    
                     //Final Resource Clean-up / Garbage collection
                     SQLreadcommand.Dispose();
-  
+
                 }
                 else
                 {
