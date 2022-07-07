@@ -34,7 +34,8 @@ namespace GTAC_TcUI_PostgreSQL
         private bool connected;
 
         //Some internal variables
-        private string rwQUERY = null;
+        private string rQUERY = null;
+        private string wINSERT = null;
 
 
 
@@ -109,10 +110,10 @@ namespace GTAC_TcUI_PostgreSQL
 
             if (connObject.FullState.ToString() == "Open")
             {
-                if (rwQUERY != null)
+                if (rQUERY != null)
                 {
                     //Create a new Npgsql command
-                    var SQLreadcommand = new NpgsqlCommand(rwQUERY, connObject);
+                    var SQLreadcommand = new NpgsqlCommand(rQUERY, connObject);
 
                     try
                     {
@@ -145,37 +146,38 @@ namespace GTAC_TcUI_PostgreSQL
         }
 
         //------------- Write data to DB -----------------
-        private async void WRITE(Command command)
+        private void WRITE(Command command)
         {   
             if (connObject.State.ToString() == "Open")
             {
-                //DEBUG, not complete
-                
-                await using var SQLwritecommand = new NpgsqlCommand("INSERT INTO public.brent_test_table (description) VALUES ($1), ($2)", connObject)
+                if (wINSERT != null)
                 {
-                    Parameters =
+                    //Create a new Npgsql Command
+                    var SQLwritecommand = new NpgsqlCommand(wINSERT, connObject);
+
+                    try
                     {
-                    new() { Value = "Brent_Value1" },
-                    new() { Value = "Brent_Value2" }
+                        SQLwritecommand.ExecuteNonQuery();
+                        command.ReadValue = "Wrote to DB";
                     }
-                };
 
-                try
-                {
-                    await SQLwritecommand.ExecuteNonQueryAsync();
-                    command.ReadValue = "Wrote to DB";
-                }
-                catch (Exception e)
-                {
-                    command.ReadValue = "Could not write to DB (" + e.Message + ")";
+                    catch (Exception e)
+                    {
+                        command.ReadValue = "Failed to write:" + e.Message;
 
+                    }
+
+                    //Final Resource Clean-up / Garbage collection
+                    SQLwritecommand.Dispose();
                 }
-                //Final Resource Clean-up / Garbage collection
-                await SQLwritecommand.DisposeAsync();
+                else
+                {
+                    command.ReadValue = "INSERT string null, use setINSERT method before triggering WRITE";
+                }
             }
             else
             {
-                //Add error handling for an INSERT request with no DB connection
+                command.ReadValue = "Not connected to DB";
             }
         }
 
@@ -233,7 +235,13 @@ namespace GTAC_TcUI_PostgreSQL
         //------------- Get Current Query String-------------
         private void getQUERY(Command command)
         {
-            command.ReadValue = "Current Query String: "+ rwQUERY;
+            command.ReadValue = "Current Query String: "+ rQUERY;
+        }
+
+        //------------- Get Current Query String-------------
+        private void getINSERT(Command command)
+        {
+            command.ReadValue = "Current Insert String: " + wINSERT;
         }
 
         //-----------------------------------------------------------------
@@ -248,7 +256,14 @@ namespace GTAC_TcUI_PostgreSQL
         //------------- Set Table Target -------------
         private void setQUERY(Command command)
         {
-            rwQUERY = command.WriteValue;
+            rQUERY = command.WriteValue;
+
+        }
+
+        //------------- Set Insert Target and Values -------------
+        private void setINSERT(Command command)
+        {
+            wINSERT = command.WriteValue;
 
         }
 
@@ -327,10 +342,20 @@ namespace GTAC_TcUI_PostgreSQL
                                 getQUERY(command);
                                 break;
 
+                            //Get Current Insert string
+                            case "getINSERT":
+                                getINSERT(command);
+                                break;
+
                             //-------- Setter Method Calls ------
-                            //Set QUERY STRING for Read or Write
+                            //Set QUERY STRING for DB Reads
                             case "setQUERY":
                                 setQUERY(command);
+                                break;
+
+                            //Set INSERT STRING for DB Writes
+                            case "setINSERT":
+                                setINSERT(command);
                                 break;
 
 
