@@ -3,7 +3,7 @@
 Welcome to the Sodecia - GTAC, TcUI - Extentions Repository
 
 - Storage location for Server Extensions and FW Controls packages used to build out TcUI code base
-- Current Packages include (as of June 2022):
+- Current Packages include (as of July 2022):
 
 # GTAC_TcUI_PostgreSQL: 
 A TcHmi Server extension for interacting with a PostgreSQL database
