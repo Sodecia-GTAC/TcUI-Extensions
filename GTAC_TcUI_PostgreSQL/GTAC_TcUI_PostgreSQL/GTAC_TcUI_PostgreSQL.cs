@@ -31,7 +31,17 @@ namespace GTAC_TcUI_PostgreSQL
 
         //Create Npgsql connection object and connected flag place holders
         NpgsqlConnection connObject;
+        NpgsqlConnection connObject_OP1;
+        NpgsqlConnection connObject_OP2;
+        NpgsqlConnection connObject_OP3;
+        NpgsqlConnection connObject_OP4;
+        NpgsqlConnection connObject_OP5;
         private bool connected;
+        private bool connected_OP1;
+        private bool connected_OP2;
+        private bool connected_OP3;
+        private bool connected_OP4;
+        private bool connected_OP5;
 
         //Some internal variables
         private string rQUERY = null;
@@ -103,6 +113,325 @@ namespace GTAC_TcUI_PostgreSQL
             }
 
         }
+        //------------ Connect to DB Optional 1 ----------------
+        private async void CONNECT_OP1(Command command)
+        {
+            //Check if DB name paramter is actually configured, if not then we will simply return a "Not Configured"
+            string DB = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "DB_OP1");
+
+            if (DB != "" || DB != null)
+            {
+                //If no connection, create new connection and open 
+                if (connected_OP1 != true)
+                {
+                    //Retreive Server Extension parameters
+                    string ServerAddr = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "AddrServer");
+                    string Port = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "Port");
+                    string username = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "username");
+                    //DEBUG must encrypt at entry point
+                    string password = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "userpassword");
+
+
+                    //------ NPGSQL connection --------
+
+                    //Build connection string using parameters from TcHmi Server Configuration
+                    string connectionString =
+                        "Host=" + ServerAddr + ";Port = " + Port + ";Database=" + DB + ";Username =" + username + ";Password=" + password + ";Timeout=" + connTimeout + ";CommandTimeout=" + cmdTimeout + ";Keepalive=" + keepAlive + ";";
+
+
+                    //Assemble connection
+                    connObject_OP1 = new NpgsqlConnection(connectionString);
+
+                    //Set some parameters
+
+                    //Try and open a connection, catch exceptions and respond as required
+                    try
+                    {
+                        connObject_OP1.Open();
+                        command.ReadValue = connObject_OP1.FullState.ToString() + " (" + connObject_OP1.Database + ")";
+                        command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLSuccess;
+                        connected_OP1 = true;
+                    }
+                    catch (Exception e)
+                    {
+                        command.ReadValue = "No Connection (" + e.Message + ")";
+                        command.ResultString = "N/A";
+                        connected_OP1 = false;
+                    }
+
+                }
+                //Connection is already established so simply pass data
+                else
+                {
+                    command.ReadValue = connObject_OP1.FullState.ToString() + " (" + connObject_OP1.Database + ")";
+                    command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLSuccess;
+                }
+            }
+            //Connection name is not configured so connection will not be used
+            else
+            {
+                command.ReadValue = ("Not Configured");
+                command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLSuccess;
+                connected_OP1 = false;
+            }
+
+        }
+        //------------ Connect to DB Optional 2 ----------------
+        private async void CONNECT_OP2(Command command)
+        {
+            //Check if DB name paramter is actually configured, if not then we will simply return a "Not Configured"
+            string DB = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "DB_OP2");
+
+            if (DB != "" || DB != null)
+            {
+                //If no connection, create new connection and open 
+                if (connected_OP2 != true)
+                {
+                    //Retreive Server Extension parameters
+                    string ServerAddr = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "AddrServer");
+                    string Port = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "Port");
+                    string username = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "username");
+                    //DEBUG must encrypt at entry point
+                    string password = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "userpassword");
+
+
+                    //------ NPGSQL connection --------
+
+                    //Build connection string using parameters from TcHmi Server Configuration
+                    string connectionString =
+                        "Host=" + ServerAddr + ";Port = " + Port + ";Database=" + DB + ";Username =" + username + ";Password=" + password + ";Timeout=" + connTimeout + ";CommandTimeout=" + cmdTimeout + ";Keepalive=" + keepAlive + ";";
+
+
+                    //Assemble connection
+                    connObject_OP2 = new NpgsqlConnection(connectionString);
+
+                    //Set some parameters
+
+                    //Try and open a connection, catch exceptions and respond as required
+                    try
+                    {
+                        connObject_OP2.Open();
+                        command.ReadValue = connObject_OP1.FullState.ToString() + " (" + connObject_OP2.Database + ")";
+                        command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLSuccess;
+                        connected_OP2 = true;
+                    }
+                    catch (Exception e)
+                    {
+                        command.ReadValue = "No Connection (" + e.Message + ")";
+                        command.ResultString = "N/A";
+                        connected_OP2 = false;
+                    }
+
+                }
+                //Connection is already established so simply pass data
+                else
+                {
+                    command.ReadValue = connObject_OP2.FullState.ToString() + " (" + connObject_OP2.Database + ")";
+                    command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLSuccess;
+                }
+            }
+            //Connection name is not configured so connection will not be used
+            else
+            {
+                command.ReadValue = ("Not Configured");
+                command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLSuccess;
+                connected_OP2 = false;
+            }
+
+        }
+
+        //------------ Connect to DB Optional 3 ----------------
+        private async void CONNECT_OP3(Command command)
+        {
+            //Check if DB name paramter is actually configured, if not then we will simply return a "Not Configured"
+            string DB = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "DB_OP3");
+
+            if (DB != "" || DB != null)
+            {
+                //If no connection, create new connection and open 
+                if (connected_OP3 != true)
+                {
+                    //Retreive Server Extension parameters
+                    string ServerAddr = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "AddrServer");
+                    string Port = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "Port");
+                    string username = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "username");
+                    //DEBUG must encrypt at entry point
+                    string password = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "userpassword");
+
+
+                    //------ NPGSQL connection --------
+
+                    //Build connection string using parameters from TcHmi Server Configuration
+                    string connectionString =
+                        "Host=" + ServerAddr + ";Port = " + Port + ";Database=" + DB + ";Username =" + username + ";Password=" + password + ";Timeout=" + connTimeout + ";CommandTimeout=" + cmdTimeout + ";Keepalive=" + keepAlive + ";";
+
+
+                    //Assemble connection
+                    connObject_OP3 = new NpgsqlConnection(connectionString);
+
+                    //Set some parameters
+
+                    //Try and open a connection, catch exceptions and respond as required
+                    try
+                    {
+                        connObject_OP3.Open();
+                        command.ReadValue = connObject_OP1.FullState.ToString() + " (" + connObject_OP3.Database + ")";
+                        command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLSuccess;
+                        connected_OP3 = true;
+                    }
+                    catch (Exception e)
+                    {
+                        command.ReadValue = "No Connection (" + e.Message + ")";
+                        command.ResultString = "N/A";
+                        connected_OP3 = false;
+                    }
+
+                }
+                //Connection is already established so simply pass data
+                else
+                {
+                    command.ReadValue = connObject_OP2.FullState.ToString() + " (" + connObject_OP3.Database + ")";
+                    command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLSuccess;
+                }
+            }
+            //Connection name is not configured so connection will not be used
+            else
+            {
+                command.ReadValue = ("Not Configured");
+                command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLSuccess;
+                connected_OP3 = false;
+            }
+
+        }
+
+        //------------ Connect to DB Optional 4 ----------------
+        private async void CONNECT_OP4(Command command)
+        {
+            //Check if DB name paramter is actually configured, if not then we will simply return a "Not Configured"
+            string DB = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "DB_OP4");
+
+            if (DB != "" || DB != null)
+            {
+                //If no connection, create new connection and open 
+                if (connected_OP4 != true)
+                {
+                    //Retreive Server Extension parameters
+                    string ServerAddr = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "AddrServer");
+                    string Port = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "Port");
+                    string username = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "username");
+                    //DEBUG must encrypt at entry point
+                    string password = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "userpassword");
+
+
+                    //------ NPGSQL connection --------
+
+                    //Build connection string using parameters from TcHmi Server Configuration
+                    string connectionString =
+                        "Host=" + ServerAddr + ";Port = " + Port + ";Database=" + DB + ";Username =" + username + ";Password=" + password + ";Timeout=" + connTimeout + ";CommandTimeout=" + cmdTimeout + ";Keepalive=" + keepAlive + ";";
+
+
+                    //Assemble connection
+                    connObject_OP4 = new NpgsqlConnection(connectionString);
+
+                    //Set some parameters
+
+                    //Try and open a connection, catch exceptions and respond as required
+                    try
+                    {
+                        connObject_OP4.Open();
+                        command.ReadValue = connObject_OP1.FullState.ToString() + " (" + connObject_OP4.Database + ")";
+                        command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLSuccess;
+                        connected_OP4 = true;
+                    }
+                    catch (Exception e)
+                    {
+                        command.ReadValue = "No Connection (" + e.Message + ")";
+                        command.ResultString = "N/A";
+                        connected_OP4 = false;
+                    }
+
+                }
+                //Connection is already established so simply pass data
+                else
+                {
+                    command.ReadValue = connObject_OP4.FullState.ToString() + " (" + connObject_OP4.Database + ")";
+                    command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLSuccess;
+                }
+            }
+            //Connection name is not configured so connection will not be used
+            else
+            {
+                command.ReadValue = ("Not Configured");
+                command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLSuccess;
+                connected_OP4 = false;
+            }
+
+        }
+
+        //------------ Connect to DB Optional 5 ----------------
+        private async void CONNECT_OP5(Command command)
+        {
+            //Check if DB name paramter is actually configured, if not then we will simply return a "Not Configured"
+            string DB = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "DB_OP5");
+
+            if (DB != "" || DB != null)
+            {
+                //If no connection, create new connection and open 
+                if (connected_OP5 != true)
+                {
+                    //Retreive Server Extension parameters
+                    string ServerAddr = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "AddrServer");
+                    string Port = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "Port");
+                    string username = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "username");
+                    //DEBUG must encrypt at entry point
+                    string password = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "userpassword");
+
+
+                    //------ NPGSQL connection --------
+
+                    //Build connection string using parameters from TcHmi Server Configuration
+                    string connectionString =
+                        "Host=" + ServerAddr + ";Port = " + Port + ";Database=" + DB + ";Username =" + username + ";Password=" + password + ";Timeout=" + connTimeout + ";CommandTimeout=" + cmdTimeout + ";Keepalive=" + keepAlive + ";";
+
+
+                    //Assemble connection
+                    connObject_OP5 = new NpgsqlConnection(connectionString);
+
+                    //Set some parameters
+
+                    //Try and open a connection, catch exceptions and respond as required
+                    try
+                    {
+                        connObject_OP5.Open();
+                        command.ReadValue = connObject_OP1.FullState.ToString() + " (" + connObject_OP5.Database + ")";
+                        command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLSuccess;
+                        connected_OP5 = true;
+                    }
+                    catch (Exception e)
+                    {
+                        command.ReadValue = "No Connection (" + e.Message + ")";
+                        command.ResultString = "N/A";
+                        connected_OP5 = false;
+                    }
+
+                }
+                //Connection is already established so simply pass data
+                else
+                {
+                    command.ReadValue = connObject_OP5.FullState.ToString() + " (" + connObject_OP5.Database + ")";
+                    command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLSuccess;
+                }
+            }
+            //Connection name is not configured so connection will not be used
+            else
+            {
+                command.ReadValue = ("Not Configured");
+                command.ExtensionResult = GTAC_TcUI_PostgreSQLErrorValue.GTAC_TcUI_PostgreSQLSuccess;
+                connected_OP5 = false;
+            }
+
+        }
+
 
         //------------ Read data from DB --------------
         private void READ(Command command)
@@ -187,9 +516,39 @@ namespace GTAC_TcUI_PostgreSQL
             connObject.Close();
             connected = false;
         }
+        //------------- Close Connection Optional 1-------------
+        private void CLOSE_OP1(Command command)
+        {
+            connObject.Close();
+            connected = false;
+        }
+        //------------- Close Connection Optional 2-------------
+        private void CLOSE_OP2(Command command)
+        {
+            connObject.Close();
+            connected = false;
+        }
+        //------------- Close Connection Optional 3-------------
+        private void CLOSE_OP3(Command command)
+        {
+            connObject.Close();
+            connected = false;
+        }
+        //------------- Close Connection Optional 4-------------
+        private void CLOSE_OP4(Command command)
+        {
+            connObject.Close();
+            connected = false;
+        }
+        //------------- Close Connection Optional 5-------------
+        private void CLOSE_OP5(Command command)
+        {
+            connObject.Close();
+            connected = false;
+        }
 
         //------------------------------------------------------
-        //------------------ Get Status Methods ----------------
+        //------------------ Get Status Methods (now obsolete)----------------
         //------------------------------------------------------
 
         //------------- Get Host -------------
@@ -215,6 +574,7 @@ namespace GTAC_TcUI_PostgreSQL
         }
 
 
+
         //------------- Get Connected Status -------------
         private void getCONNECTED(Command command)
         {
@@ -231,6 +591,82 @@ namespace GTAC_TcUI_PostgreSQL
             }
            
         }
+        //------------- Get Connected Status (Optional DB 1)-------------
+        private void getCONNECTED_OP1(Command command)
+        {
+
+            if (connObject_OP1.FullState.ToString() == "Open")
+            {
+                connected_OP1 = true;
+                command.ReadValue = true;
+            }
+            else
+            {
+                connected_OP1 = false;
+                command.ReadValue = false;
+            }
+        }
+        //------------- Get Connected Status (Optional DB 2)-------------
+        private void getCONNECTED_OP2(Command command)
+        {
+
+            if (connObject_OP2.FullState.ToString() == "Open")
+            {
+                connected_OP2 = true;
+                command.ReadValue = true;
+            }
+            else
+            {
+                connected_OP2 = false;
+                command.ReadValue = false;
+            }
+        }
+        //------------- Get Connected Status (Optional DB 3)-------------
+        private void getCONNECTED_OP3(Command command)
+        {
+
+            if (connObject_OP3.FullState.ToString() == "Open")
+            {
+                connected_OP3 = true;
+                command.ReadValue = true;
+            }
+            else
+            {
+                connected_OP3 = false;
+                command.ReadValue = false;
+            }
+        }
+        //------------- Get Connected Status (Optional DB 4)-------------
+        private void getCONNECTED_OP4(Command command)
+        {
+
+            if (connObject_OP4.FullState.ToString() == "Open")
+            {
+                connected_OP4 = true;
+                command.ReadValue = true;
+            }
+            else
+            {
+                connected_OP4 = false;
+                command.ReadValue = false;
+            }
+        }
+        //------------- Get Connected Status (Optional DB 5)-------------
+        private void getCONNECTED_OP5(Command command)
+        {
+
+            if (connObject_OP5.FullState.ToString() == "Open")
+            {
+                connected_OP5 = true;
+                command.ReadValue = true;
+            }
+            else
+            {
+                connected_OP5 = false;
+                command.ReadValue = false;
+            }
+        }
+
 
         //------------- Get Current Query String-------------
         private void getQUERY(Command command)
@@ -294,7 +730,27 @@ namespace GTAC_TcUI_PostgreSQL
                             case "CONNECT":
                                 CONNECT(command);
                                 break;
-
+                            //Connect to DB Server
+                            case "CONNECT_OP1":
+                                CONNECT_OP1(command);
+                                break;
+                            //Connect to DB Server
+                            case "CONNECT_OP2":
+                                CONNECT_OP2(command);
+                                break;
+                            //Connect to DB Server
+                            case "CONNECT_OP3":
+                                CONNECT_OP3(command);
+                                break;
+                            //Connect to DB Server
+                            case "CONNECT_OP4":
+                                CONNECT_OP4(command);
+                                break;
+                            //Connect to DB Server
+                            case "CONNECT_OP5":
+                                CONNECT_OP5(command);
+                                break;
+                            
                             //Read Data from Database
                             case "READ":
                                 READ(command);
@@ -307,6 +763,26 @@ namespace GTAC_TcUI_PostgreSQL
 
                             //Close Conection
                             case "CLOSE":
+                                CLOSE(command);
+                                break;
+                            //Close Conection
+                            case "CLOSE_OP1":
+                                CLOSE(command);
+                                break;
+                            //Close Conection
+                            case "CLOSE_OP2":
+                                CLOSE(command);
+                                break;
+                            //Close Conection
+                            case "CLOSE_OP3":
+                                CLOSE(command);
+                                break;
+                            //Close Conection
+                            case "CLOSE_OP4":
+                                CLOSE(command);
+                                break;
+                            //Close Conection
+                            case "CLOSE_OP5":
                                 CLOSE(command);
                                 break;
 
@@ -335,6 +811,26 @@ namespace GTAC_TcUI_PostgreSQL
                             //Get Connected Status
                             case "getCONNECTED":
                                 getCONNECTED(command);
+                                break;
+                            //Get Connected Status
+                            case "getCONNECTED_OP1":
+                                getCONNECTED_OP1(command);
+                                break;
+                            //Get Connected Status
+                            case "getCONNECTED_OP2":
+                                getCONNECTED_OP2(command);
+                                break;
+                            //Get Connected Status
+                            case "getCONNECTED_OP3":
+                                getCONNECTED_OP3(command);
+                                break;
+                            //Get Connected Status
+                            case "getCONNECTED_OP4":
+                                getCONNECTED_OP4(command);
+                                break;
+                            //Get Connected Status
+                            case "getCONNECTED_OP5":
+                                getCONNECTED_OP5(command);
                                 break;
 
                             //Get Current Query string
