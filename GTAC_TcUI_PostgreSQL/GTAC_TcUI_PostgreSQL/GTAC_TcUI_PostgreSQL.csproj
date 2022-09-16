@@ -40,7 +40,7 @@
 
 	<PropertyGroup>
 		<ProjectGuid>a4eb6faa-95b3-4040-ae2f-922fa9c4eed1</ProjectGuid>
-		<Version>0.0.2.8</Version>
+		<Version>0.0.2.15</Version>
 	</PropertyGroup>
 
 	<ItemGroup>

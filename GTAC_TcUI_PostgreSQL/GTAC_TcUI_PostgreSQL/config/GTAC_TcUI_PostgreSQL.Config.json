@@ -2,7 +2,7 @@
   "$schema": "ExtensionSettings.Schema.json",
   "guid": "0542e480-5ef4-401b-a478-ce0f2b61cd1e",
   "version": "0.0.2.2",
-  "configVersion": "0.0.2.6",
+  "configVersion": "0.0.2.7",
   "policies": [
     "StrictPropertyValidation"
   ],
@@ -136,6 +136,86 @@
       }
     },
     "CLOSE": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
+    "CLOSE_OP1": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
+    "CLOSE_OP2": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
+    "CLOSE_OP3": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
+    "CLOSE_OP4": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
+    "CLOSE_OP5": {
       "userGroups": [
         "__SystemUsers"
       ],
