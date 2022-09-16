@@ -7,7 +7,7 @@ Welcome to the Sodecia - GTAC, TcUI - Extentions Repository
 
 # GTAC_TcUI_PostgreSQL: 
 A TcHmi Server extension for interacting with a PostgreSQL database
-- Current Version = 0.0.2.8 
+- Current Version = 0.0.2.15 
 - (major_release_ver.minor_release_ver.alphabeta_flags.build)
 
 
