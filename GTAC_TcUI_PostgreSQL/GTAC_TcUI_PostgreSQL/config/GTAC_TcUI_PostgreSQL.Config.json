@@ -2,7 +2,7 @@
   "$schema": "ExtensionSettings.Schema.json",
   "guid": "0542e480-5ef4-401b-a478-ce0f2b61cd1e",
   "version": "0.0.2.2",
-  "configVersion": "0.0.2.7",
+  "configVersion": "0.0.2.10",
   "policies": [
     "StrictPropertyValidation"
   ],
@@ -119,7 +119,167 @@
         ]
       }
     },
+    "READ_OP1": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
+    "READ_OP2": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
+    "READ_OP3": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
+    "READ_OP4": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
+    "READ_OP5": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
     "WRITE": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
+    "WRITE_OP1": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
+    "WRITE_OP2": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
+    "WRITE_OP3": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
+    "WRITE_OP4": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
+    "WRITE_OP5": {
       "userGroups": [
         "__SystemUsers"
       ],
@@ -423,7 +583,182 @@
         ]
       }
     },
+    "getQUERY_OP1": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
+    "getQUERY_OP2": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
+    "getQUERY_OP3": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
+    "getQUERY_OP4": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
+    "getQUERY_OP5": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
     "setQUERY": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      },
+      "writeValue": {
+        "type": "string"
+      }
+    },
+    "setQUERY_OP1": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      },
+      "writeValue": {
+        "type": "string"
+      }
+    },
+    "setQUERY_OP2": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      },
+      "writeValue": {
+        "type": "string"
+      }
+    },
+    "setQUERY_OP3": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      },
+      "writeValue": {
+        "type": "string"
+      }
+    },
+    "setQUERY_OP4": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      },
+      "writeValue": {
+        "type": "string"
+      }
+    },
+    "setQUERY_OP5": {
       "userGroups": [
         "__SystemUsers"
       ],
@@ -458,7 +793,182 @@
         ]
       }
     },
+    "getINSERT_OP1": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
+    "getINSERT_OP2": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
+    "getINSERT_OP3": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
+    "getINSERT_OP4": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
+    "getINSERT_OP5": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    },
     "setINSERT": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      },
+      "writeValue": {
+        "type": "string"
+      }
+    },
+    "setINSERT_OP1": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      },
+      "writeValue": {
+        "type": "string"
+      }
+    },
+    "setINSERT_OP2": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      },
+      "writeValue": {
+        "type": "string"
+      }
+    },
+    "setINSERT_OP3": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      },
+      "writeValue": {
+        "type": "string"
+      }
+    },
+    "setINSERT_OP4": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      },
+      "writeValue": {
+        "type": "string"
+      }
+    },
+    "setINSERT_OP5": {
       "userGroups": [
         "__SystemUsers"
       ],

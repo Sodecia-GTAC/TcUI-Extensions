@@ -34,8 +34,8 @@ namespace GTAC_TcUI_PostgreSQL
         private bool[] DB_isconnected = new bool[6];
 
         //Some internal variables
-        private string rQUERY = null;
-        private string wINSERT = null;
+        private string[] rQUERY = new string[6];
+        private string[] wINSERT = new string[6];
 
 
 
@@ -153,17 +153,27 @@ namespace GTAC_TcUI_PostgreSQL
             CONNECT_Base(5, "DB_OP5", ref command);
         }
 
+        //--------------------------------------------------------
+        //------------ Read data from DB Base Method--------------
+        //--------------------------------------------------------
 
-        //------------ Read data from DB --------------
-        private void READ(Command command)
+        private void READ_Base(int DBConnectionNum, ref Command command)
         {
 
-            if (DB_ConnectionArray[0].FullState.ToString() == "Open")
+            if (DB_ConnectionArray[DBConnectionNum].FullState.ToString() == "Open")
             {
+
+                //If SQL command is sent via the Read Trigger then capture and overwrite the manually set rQUERY variable
+                if (command.WriteValue != null)
+                {
+                    rQUERY[DBConnectionNum] = command.WriteValue;
+                }
+
+                //Ensure rQUERY has something (either sent from command i/f or from manually set via setQUERY        
                 if (rQUERY != null)
                 {
                     //Create a new Npgsql command
-                    var SQLreadcommand = new NpgsqlCommand(rQUERY, DB_ConnectionArray[0]);
+                    var SQLreadcommand = new NpgsqlCommand(rQUERY[DBConnectionNum], DB_ConnectionArray[DBConnectionNum]);
 
                     try
                     {
@@ -186,7 +196,7 @@ namespace GTAC_TcUI_PostgreSQL
                 }
                 else
                 {
-                    command.ReadValue = "QUERY string null, use setQUERY method before triggering READ";
+                    command.ReadValue = "QUERY string null, either set READ symbol upon trigger or use setQUERY method before triggering READ";
                 }
             }
             else
@@ -195,15 +205,58 @@ namespace GTAC_TcUI_PostgreSQL
             }
         }
 
-        //------------- Write data to DB -----------------
-        private void WRITE(Command command)
+        //Method calls from the server extension Interface (TcHmi symbol triggers)
+        //------------- Read from Primary DB ------------
+        private void READ(Command command)
+        {
+            READ_Base(0, ref command);
+        }
+        //------------- Read from Optional DB 1 ------------
+        private void READ_OP1(Command command)
+        {
+            READ_Base(1, ref command);
+        }
+        //------------- Read from Optional DB 2----------
+        private void READ_OP2(Command command)
+        {
+            READ_Base(2, ref command);
+        }
+        //------------- Read from Optional DB 3------------
+        private void READ_OP3(Command command)
+        {
+            READ_Base(3, ref command);
+        }
+        //------------- Read from Optional DB 4------------
+        private void READ_OP4(Command command)
+        {
+            READ_Base(4, ref command);
+        }
+        //------------- Read from Optional DB 5------------
+        private void READ_OP5(Command command)
+        {
+            READ_Base(5, ref command);
+        }
+
+
+
+        //------------------------------------------------------------
+        //------------- Write data to DB Base Method -----------------
+        //------------------------------------------------------------
+        private void WRITE_Base(int DBConnectionNum, ref Command command)
         {   
-            if (DB_ConnectionArray[0].State.ToString() == "Open")
+            if (DB_ConnectionArray[DBConnectionNum].State.ToString() == "Open")
             {
+                //If SQL command is sent via the WRITETrigger then capture and overwrite the manually set wINSERT variable
+                if (command.WriteValue != null)
+                {
+                    wINSERT[DBConnectionNum] = command.WriteValue;
+                }
+
+                //Ensure wINSERT has something (either sent from command i/f or from manually set via setINSERT        
                 if (wINSERT != null)
                 {
                     //Create a new Npgsql Command
-                    var SQLwritecommand = new NpgsqlCommand(wINSERT, DB_ConnectionArray[0]);
+                    var SQLwritecommand = new NpgsqlCommand(wINSERT[DBConnectionNum], DB_ConnectionArray[DBConnectionNum]);
 
                     try
                     {
@@ -222,7 +275,7 @@ namespace GTAC_TcUI_PostgreSQL
                 }
                 else
                 {
-                    command.ReadValue = "INSERT string null, use setINSERT method before triggering WRITE";
+                    command.ReadValue = "INSERT string null, either set WRITE symbol upon trigger or use setINSERT method before triggering WRITE";
                 }
             }
             else
@@ -230,8 +283,42 @@ namespace GTAC_TcUI_PostgreSQL
                 command.ReadValue = "Not connected to DB";
             }
         }
+        //Method calls from the server extension Interface (TcHmi symbol triggers)
+        //------------- Write to Primary DB ------------
+        private void WRITE(Command command)
+        {
+            WRITE_Base(0, ref command);
+        }
+        //------------- Write to Optional DB 1 ------------
+        private void WRITE_OP1(Command command)
+        {
+            WRITE_Base(1, ref command);
+        }
+        //------------- Write to Optional DB 2 ------------
+        private void WRITE_OP2(Command command)
+        {
+            WRITE_Base(2, ref command);
+        }
+        //------------- Write to Optional DB 3 ------------
+        private void WRITE_OP3(Command command)
+        {
+            WRITE_Base(3, ref command);
+        }
+        //------------- Write to Optional DB 4 ------------
+        private void WRITE_OP4(Command command)
+        {
+            WRITE_Base(4, ref command);
+        }
+        //------------- Write to Optional DB 5 ------------
+        private void WRITE_OP5(Command command)
+        {
+            WRITE_Base(5, ref command);
+        }
 
+
+        //--------------------------------------------
         //------------- Close Connection -------------
+        //--------------------------------------------
         private void CLOSE(Command command)
         {
             DB_ConnectionArray[0].Close();
@@ -311,16 +398,68 @@ namespace GTAC_TcUI_PostgreSQL
         }
 
 
-        //------------- Get Current Query String-------------
+        //------------- Get Current Query String, Primary DB -------------
         private void getQUERY(Command command)
         {
-            command.ReadValue = "Current Query String: "+ rQUERY;
+            command.ReadValue = "Current Query String: "+ rQUERY[0];
+        }
+        //------------- Get Current Query String, Optional DB 1 -------------
+        private void getQUERY_OP1(Command command)
+        {
+            command.ReadValue = "Current Query String: " + rQUERY[1];
+        }
+        //------------- Get Current Query String, Optional DB 2 -------------
+        private void getQUERY_OP2(Command command)
+        {
+            command.ReadValue = "Current Query String: " + rQUERY[2];
+        }
+        //------------- Get Current Query String, Optional DB 3 -------------
+        private void getQUERY_OP3(Command command)
+        {
+            command.ReadValue = "Current Query String: " + rQUERY[3];
+        }
+        //------------- Get Current Query String, Optional DB 4 -------------
+        private void getQUERY_OP4(Command command)
+        {
+            command.ReadValue = "Current Query String: " + rQUERY[4];
+        }
+        //------------- Get Current Query String, Optional DB 5 -------------
+        private void getQUERY_OP5(Command command)
+        {
+            command.ReadValue = "Current Query String: " + rQUERY[5];
         }
 
-        //------------- Get Current Query String-------------
+
+
+        //------------- Get Current Query String, Primart DB -------------
         private void getINSERT(Command command)
         {
-            command.ReadValue = "Current Insert String: " + wINSERT;
+            command.ReadValue = "Current Insert String: " + wINSERT[0];
+        }
+        //------------- Get Current Query String, Optional DB 1 -------------
+        private void getINSERT_OP1(Command command)
+        {
+            command.ReadValue = "Current Insert String: " + wINSERT[1];
+        }
+        //------------- Get Current Query String, Optional DB 2 -------------
+        private void getINSERT_OP2(Command command)
+        {
+            command.ReadValue = "Current Insert String: " + wINSERT[2];
+        }
+        //------------- Get Current Query String, Optional DB 3 -------------
+        private void getINSERT_OP3(Command command)
+        {
+            command.ReadValue = "Current Insert String: " + wINSERT[3];
+        }
+        //------------- Get Current Query String, Optional DB 4 -------------
+        private void getINSERT_OP4(Command command)
+        {
+            command.ReadValue = "Current Insert String: " + wINSERT[4];
+        }
+        //------------- Get Current Query String, Optional DB 5 -------------
+        private void getINSERT_OP5(Command command)
+        {
+            command.ReadValue = "Current Insert String: " + wINSERT[5];
         }
 
         //-----------------------------------------------------------------
@@ -332,18 +471,68 @@ namespace GTAC_TcUI_PostgreSQL
         //------------------ Setter Method ---------------------
         //------------------------------------------------------
 
-        //------------- Set Table Target -------------
+        //------------- Set Table Target, Primary DB -------------
         private void setQUERY(Command command)
         {
-            rQUERY = command.WriteValue;
-
+            rQUERY[0] = command.WriteValue;
+        }
+        //------------- Set Table Target, Optional DB 1 -------------
+        private void setQUERY_OP1(Command command)
+        {
+            rQUERY[1] = command.WriteValue;
+        }
+        //------------- Set Table Target, Optional DB 2 -------------
+        private void setQUERY_OP2(Command command)
+        {
+            rQUERY[2] = command.WriteValue;
+        }
+        //------------- Set Table Target, Optional DB 3 -------------
+        private void setQUERY_OP3(Command command)
+        {
+            rQUERY[3] = command.WriteValue;
+        }
+        //------------- Set Table Target, Optional DB 4 -------------
+        private void setQUERY_OP4(Command command)
+        {
+            rQUERY[4] = command.WriteValue;
+        }
+        //------------- Set Table Target, Optional DB 5 -------------
+        private void setQUERY_OP5(Command command)
+        {
+            rQUERY[5] = command.WriteValue;
         }
 
-        //------------- Set Insert Target and Values -------------
+ 
+        
+        //------------- Set Insert Target and Values, Primary DB -------------
         private void setINSERT(Command command)
         {
-            wINSERT = command.WriteValue;
-
+            wINSERT[0] = command.WriteValue;
+        }
+        //------------- Set Insert Target and Values, Optional DB 1 -------------
+        private void setINSERT_OP1(Command command)
+        {
+            wINSERT[1] = command.WriteValue;
+        }
+        //------------- Set Insert Target and Values, Optional DB 2 -------------
+        private void setINSERT_OP2(Command command)
+        {
+            wINSERT[2] = command.WriteValue;
+        }
+        //------------- Set Insert Target and Values, Optional DB 3 -------------
+        private void setINSERT_OP3(Command command)
+        {
+            wINSERT[3] = command.WriteValue;
+        }
+        //------------- Set Insert Target and Values, Optional DB 4 -------------
+        private void setINSERT_OP4(Command command)
+        {
+            wINSERT[4] = command.WriteValue;
+        }
+        //------------- Set Insert Target and Values, Optional DB 5 -------------
+        private void setINSERT_OP5(Command command)
+        {
+            wINSERT[5] = command.WriteValue;
         }
 
 
@@ -401,10 +590,45 @@ namespace GTAC_TcUI_PostgreSQL
                             case "READ":
                                 READ(command);
                                 break;
+                            case "READ_OP1":
+                                READ_OP1(command);
+                                break;
+                            case "READ_OP2":
+                                READ_OP2(command);
+                                break;
+                            case "READ_OP3":
+                                READ_OP3(command);
+                                break;
+                            case "READ_OP4":
+                                READ_OP4(command);
+                                break;
+                            case "READ_OP5":
+                                READ_OP5(command);
+                                break;
 
                             //Write Data to Database
                             case "WRITE":
                                 WRITE(command);
+                                break;
+                            //Write Data to Database
+                            case "WRITE_OP1":
+                                WRITE_OP1(command);
+                                break;
+                            //Write Data to Database
+                            case "WRITE_OP2":
+                                WRITE_OP2(command);
+                                break;
+                            //Write Data to Database
+                            case "WRITE_OP3":
+                                WRITE_OP3(command);
+                                break;
+                            //Write Data to Database
+                            case "WRITE_OP4":
+                                WRITE_OP4(command);
+                                break;
+                            //Write Data to Database
+                            case "WRITE_OP5":
+                                WRITE_OP5(command);
                                 break;
 
                             //Close Conection
@@ -460,26 +684,108 @@ namespace GTAC_TcUI_PostgreSQL
                                 getCONNECTED_OP5(command);
                                 break;
 
-                            //Get Current Query string
+                            //Get Current Query string, Primary DB
                             case "getQUERY":
                                 getQUERY(command);
                                 break;
+                            //Get Current Query string, Optional DB 1
+                            case "getQUERY_OP1":
+                                getQUERY_OP1(command);
+                                break;
+                            //Get Current Query string, Optional DB 2
+                            case "getQUERY_OP2":
+                                getQUERY_OP2(command);
+                                break;
+                            //Get Current Query string, Optional DB 3
+                            case "getQUERY_OP3":
+                                getQUERY_OP2(command);
+                                break;
+                            //Get Current Query string, Optional DB 4
+                            case "getQUERY_OP4":
+                                getQUERY_OP4(command);
+                                break;
+                            //Get Current Query string, Optional DB 5
+                            case "getQUERY_OP5":
+                                getQUERY_OP5(command);
+                                break;
 
-                            //Get Current Insert string
+                            //Get Current Insert string, Primary DB
                             case "getINSERT":
                                 getINSERT(command);
+                                break;
+                            //Get Current Insert string, Optional DB 1
+                            case "getINSERT_OP1":
+                                getINSERT_OP1(command);
+                                break;
+                            //Get Current Insert string, Optional DB 2
+                            case "getINSERT_OP2":
+                                getINSERT_OP2(command);
+                                break;
+                            //Get Current Insert string, Optional DB 3
+                            case "getINSERT_OP3":
+                                getINSERT_OP3(command);
+                                break;
+                            //Get Current Insert string, Optional DB 4
+                            case "getINSERT_OP4":
+                                getINSERT_OP4(command);
+                                break;
+                            //Get Current Insert string, Optional DB 5
+                            case "getINSERT_OP5":
+                                getINSERT_OP5(command);
                                 break;
 
                             //-------- Setter Method Calls ------
 
                             //Set QUERY STRING for DB Reads
+                            //Primary DB
                             case "setQUERY":
                                 setQUERY(command);
                                 break;
+                            //Optional DB 1
+                            case "setQUERY_OP1":
+                                setQUERY_OP1(command);
+                                break;
+                            //Optional DB 2
+                            case "setQUERY_OP2":
+                                setQUERY_OP2(command);
+                                break;
+                            //Optional DB 3
+                            case "setQUERY_OP3":
+                                setQUERY_OP3(command);
+                                break;
+                            //Optional DB 4
+                            case "setQUERY_OP4":
+                                setQUERY_OP4(command);
+                                break;
+                            //Optional DB 5
+                            case "setQUERY_OP5":
+                                setQUERY_OP5(command);
+                                break;
 
                             //Set INSERT STRING for DB Writes
+                            //Primary DB
                             case "setINSERT":
                                 setINSERT(command);
+                                break;
+                            //Optional DB 1
+                            case "setINSERT_OP1":
+                                setINSERT_OP1(command);
+                                break;
+                            //Optional DB 2
+                            case "setINSERT_OP2":
+                                setINSERT_OP2(command);
+                                break;
+                            //Optional DB 3
+                            case "setINSERT_OP3":
+                                setINSERT_OP3(command);
+                                break;
+                            //Optional DB 4
+                            case "setINSERT_OP4":
+                                setINSERT_OP4(command);
+                                break;
+                            //Optional DB 5
+                            case "setINSERT_OP5":
+                                setINSERT_OP5(command);
                                 break;
 
 
