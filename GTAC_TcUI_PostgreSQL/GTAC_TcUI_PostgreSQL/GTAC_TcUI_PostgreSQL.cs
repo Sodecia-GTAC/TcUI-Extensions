@@ -182,6 +182,8 @@ namespace GTAC_TcUI_PostgreSQL
                         while (DBreaderObject.Read())
                         {
                             command.ReadValue = DBreaderObject.GetValue(0).ToString();
+                            //Clear out previous Query string
+                            rQUERY[DBConnectionNum] = "";
                         }
                       
                     }
@@ -261,7 +263,9 @@ namespace GTAC_TcUI_PostgreSQL
                     try
                     {
                         SQLwritecommand.ExecuteNonQuery();
-                        command.ReadValue = "Wrote to DB";
+                        command.ReadValue = "Command Executed";
+                        //Clear out previous Insert / Command string
+                        wINSERT[DBConnectionNum] = "";
                     }
 
                     catch (Exception e)
@@ -637,23 +641,23 @@ namespace GTAC_TcUI_PostgreSQL
                                 break;
                             //Close Conection
                             case "CLOSE_OP1":
-                                CLOSE(command);
+                                CLOSE_OP1(command);
                                 break;
                             //Close Conection
                             case "CLOSE_OP2":
-                                CLOSE(command);
+                                CLOSE_OP2(command);
                                 break;
                             //Close Conection
                             case "CLOSE_OP3":
-                                CLOSE(command);
+                                CLOSE_OP3(command);
                                 break;
                             //Close Conection
                             case "CLOSE_OP4":
-                                CLOSE(command);
+                                CLOSE_OP4(command);
                                 break;
                             //Close Conection
                             case "CLOSE_OP5":
-                                CLOSE(command);
+                                CLOSE_OP5(command);
                                 break;
 
 
