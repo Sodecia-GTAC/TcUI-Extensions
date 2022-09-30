@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 		<AssemblyName>GTAC_TcUI_PostgreSQL</AssemblyName>
 	</PropertyGroup>
@@ -40,11 +40,22 @@
 
 	<PropertyGroup>
 		<ProjectGuid>a4eb6faa-95b3-4040-ae2f-922fa9c4eed1</ProjectGuid>
-		<Version>0.0.2.19</Version>
+		<Version>0.0.2.20</Version>
+		<PackageIcon>logo.png</PackageIcon>
+		<PackageIconUrl />
+		<AssemblyVersion>1.12.758.8</AssemblyVersion>
+		<FileVersion>1.12.758.8</FileVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
 	  <PackageReference Include="Npgsql" Version="6.0.5" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="Images\logo.png">
+	    <Pack>True</Pack>
+	    <PackagePath></PackagePath>
+	  </None>
 	</ItemGroup>
 
 </Project>
