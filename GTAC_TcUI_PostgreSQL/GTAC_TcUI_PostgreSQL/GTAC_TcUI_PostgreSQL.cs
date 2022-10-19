@@ -181,6 +181,7 @@ namespace GTAC_TcUI_PostgreSQL
                         using NpgsqlDataReader DBreaderObject = SQLreadcommand.ExecuteReader();
                         while (DBreaderObject.Read())
                         {
+                            //Return column zero of the SELECT command (future versions will allow multiple column returns
                             command.ReadValue = DBreaderObject.GetValue(0).ToString();
                             //Clear out previous Query string
                             rQUERY[DBConnectionNum] = "";
