@@ -160,7 +160,8 @@ namespace GTAC_TcUI_PostgreSQL
         private void READ_Base(int DBConnectionNum, ref Command command)
         {
 
-            if (DB_ConnectionArray[DBConnectionNum].FullState.ToString() == "Open")
+            //Ensure connection state is open, otherwise inform caller
+            if (DB_ConnectionArray[DBConnectionNum].State.ToString() == "Open")
             {
 
                 //If SQL command is sent via the Read Trigger then capture and overwrite the manually set rQUERY variable
@@ -243,10 +244,11 @@ namespace GTAC_TcUI_PostgreSQL
 
 
         //------------------------------------------------------------
-        //------------- Write data to DB Base Method -----------------
+        //------------- Write command to DB Base Method -----------------
         //------------------------------------------------------------
         private void WRITE_Base(int DBConnectionNum, ref Command command)
-        {   
+        {
+            //Ensure connection state is open, otherwise inform caller
             if (DB_ConnectionArray[DBConnectionNum].State.ToString() == "Open")
             {
                 //If SQL command is sent via the WRITETrigger then capture and overwrite the manually set wINSERT variable

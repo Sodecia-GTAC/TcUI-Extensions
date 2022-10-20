@@ -43,12 +43,12 @@
 		<Version>0.0.2.20</Version>
 		<PackageIcon>logo.png</PackageIcon>
 		<PackageIconUrl />
-		<AssemblyVersion>1.12.758.8</AssemblyVersion>
-		<FileVersion>1.12.758.8</FileVersion>
+		<AssemblyVersion>1.12.758.802</AssemblyVersion>
+		<FileVersion>1.12.758.802</FileVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Npgsql" Version="6.0.5" />
+	  <PackageReference Include="Npgsql" Version="6.0.7" />
 	</ItemGroup>
 
 	<ItemGroup>
