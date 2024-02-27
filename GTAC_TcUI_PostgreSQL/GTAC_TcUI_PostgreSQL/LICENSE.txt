@@ -2,9 +2,10 @@
 This package license notice:
 
 ------------------------------------------
-Original Author(s): Brent Lekx-Toniolo of BLT Consulting and Chris Drees of Sodecia GTAC R&D
+Original Author(s): Brent Lekx-Toniolo of BLT Consulting (init concept) and Sodecia GTAC R&D
+and and field tested by Chris Dress prev. of Sodecia GTAC R&D
 Server Extension created during Sodecia GTAC IWS -> TcUI migration project
-Copyright (c) Brent Lekx-Toniolo & Chris Drees. All rights reserved
+Copyright (c) 2022-2024, Brent Lekx-Toniolo, All rights reserved
 -------------------------------------------
 
 
@@ -12,7 +13,7 @@ Copyright (c) Brent Lekx-Toniolo & Chris Drees. All rights reserved
 Dependancy package(s) license notice(s):
 
 Npgsql---------------------
-Copyright (c) 2002-2021, Npgsql
+Copyright (c) 2002-2023, Npgsql
 
 Permission to use, copy, modify, and distribute this software and its
 documentation for any purpose, without fee, and without a written agreement

@@ -9,7 +9,7 @@
 	<PropertyGroup>
 		<Company>Sodecia GTAC</Company>
 		<Description>TcHmi Server Extension for interacting with PostgreSQL Database</Description>
-		<Copyright>Copyright © Brent Lekx-Toniolo, Chris Drees 2022</Copyright>
+		<Copyright>Copyright © 2022-2024 Brent Lekx-Toniolo, Chris Drees</Copyright>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -40,19 +40,30 @@
 
 	<PropertyGroup>
 		<ProjectGuid>a4eb6faa-95b3-4040-ae2f-922fa9c4eed1</ProjectGuid>
-		<Version>0.0.2.20</Version>
+		<Version>1.12.760.5901</Version>
 		<PackageIcon>logo.png</PackageIcon>
 		<PackageIconUrl />
-		<AssemblyVersion>1.12.758.802</AssemblyVersion>
-		<FileVersion>1.12.758.802</FileVersion>
+		<AssemblyVersion>1.12.760.5901</AssemblyVersion>
+		<FileVersion>1.12.760.5901</FileVersion>
+		<PackageReleaseNotes>Uprev to NPGSQL 6.0.10</PackageReleaseNotes>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<Authors>Brent Lekx-Toniolo, Chris Drees</Authors>
+		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+		<PackageProjectUrl>www.tbd.tld</PackageProjectUrl>
+		<PackageTags>TwinCAT HMI Server, PostgreSQL, Database</PackageTags>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Npgsql" Version="6.0.7" />
+	  <PackageReference Include="Npgsql" Version="6.0.10" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <None Include="Images\logo.png">
+	    <Pack>True</Pack>
+	    <PackagePath></PackagePath>
+	  </None>
+	  <None Include="LICENSE.txt">
 	    <Pack>True</Pack>
 	    <PackagePath></PackagePath>
 	  </None>
