@@ -182,12 +182,32 @@ namespace GTAC_TcUI_PostgreSQL
                         using NpgsqlDataReader DBreaderObject = SQLreadcommand.ExecuteReader();
                         while (DBreaderObject.Read())
                         {
-                            //Return column zero of the SELECT command (future versions will allow multiple column returns
-                            command.ReadValue = DBreaderObject.GetValue(0).ToString();
+                            //Return mulitple columns from SELECT command, each columan value seperated by ~)
+                            if (DBreaderObject.FieldCount >1)
+                            {
+                                //Build String from mulitple columns of data
+                                for(var col = 0; col < DBreaderObject.FieldCount; col++)
+                                {
+                                    if (col < (DBreaderObject.FieldCount-1))
+                                    {
+                                        command.ReadValue = command.ReadValue + DBreaderObject.GetValue(col).ToString() + "~";
+                                    }
+                                    else
+                                    {
+                                        command.ReadValue = command.ReadValue + DBreaderObject.GetValue(col).ToString();
+                                    }
+                                }
+                            }
+                        else
+                            {
+                                //Return column zero of the SELECT command
+                                command.ReadValue = DBreaderObject.GetValue(0).ToString();
+                            }
                             //Clear out previous Query string
                             rQUERY[DBConnectionNum] = "";
                         }
-                      
+
+
                     }
                     catch (Exception e)
                     {
@@ -438,7 +458,7 @@ namespace GTAC_TcUI_PostgreSQL
 
 
 
-        //------------- Get Current Query String, Primart DB -------------
+        //------------- Get Current Query String, Primary DB -------------
         private void getINSERT(Command command)
         {
             command.ReadValue = "Current Insert String: " + wINSERT[0];

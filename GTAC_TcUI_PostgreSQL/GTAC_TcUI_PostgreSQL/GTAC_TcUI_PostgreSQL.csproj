@@ -40,7 +40,7 @@
 
 	<PropertyGroup>
 		<ProjectGuid>a4eb6faa-95b3-4040-ae2f-922fa9c4eed1</ProjectGuid>
-		<Version>1.12.760.5901</Version>
+		<Version>1.12.760.5969</Version>
 		<PackageIcon>logo.png</PackageIcon>
 		<PackageIconUrl />
 		<AssemblyVersion>1.12.760.5901</AssemblyVersion>
