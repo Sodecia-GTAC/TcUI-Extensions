@@ -198,10 +198,10 @@ namespace GTAC_TcUI_PostgreSQL
                                     }
                                 }
                             }
-                        else
+                            //Return column zero of the SELECT command, seperated by * if mulitple rows
+                            else
                             {
-                                //Return column zero of the SELECT command
-                                command.ReadValue = DBreaderObject.GetValue(0).ToString();
+                                command.ReadValue = command.ReadValue + DBreaderObject.GetValue(0).ToString() + "*";
                             }
                             //Clear out previous Query string
                             rQUERY[DBConnectionNum] = "";
