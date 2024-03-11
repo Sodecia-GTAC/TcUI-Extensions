@@ -3,7 +3,7 @@
 //     Copyright (c) Beckhoff Automation GmbH & Co. KG. All Rights Reserved.
 // </copyright>
 //-----------------------------------------------------------------------
-// Edits by b.lekx-toniolo to create custom Server Extension
+//Template by beckhoff, functional code by: b.lekx-toniolo to create custom Server Extension
 //-----------------------------------------------------------------------
 
 using System;
@@ -175,12 +175,12 @@ namespace GTAC_TcUI_PostgreSQL
                 {
                     //Create a new Npgsql command
                     var SQLreadcommand = new NpgsqlCommand(rQUERY[DBConnectionNum], DB_ConnectionArray[DBConnectionNum]);
-                    // Create temp variable for DB read processing
+                    //Create temp variable for DB read processing
                     string TempString = null;
 
                     try
                     {
-                        //Create newe Data Read Object
+                        //Create new Data Reader Object
                         using NpgsqlDataReader DBreaderObject = SQLreadcommand.ExecuteReader();
                         while (DBreaderObject.Read())
                         {
@@ -192,12 +192,12 @@ namespace GTAC_TcUI_PostgreSQL
                                 {
                                     if (col < (DBreaderObject.FieldCount-1))
                                     {
-                                        // Sperate Columns by tilde (~)
+                                        //Seperate Columns by tilde (~) marker
                                         TempString = TempString + DBreaderObject.GetValue(col).ToString() + "~";
                                     }
                                     else
                                     {
-                                        //Seperate Rows by asterisk (*)
+                                        //Seperate Rows by asterisk (*) marker
                                         TempString = TempString + DBreaderObject.GetValue(col).ToString() + "*";
                                     }
                                 }
@@ -210,7 +210,7 @@ namespace GTAC_TcUI_PostgreSQL
                             //Clear out previous Query string
                             rQUERY[DBConnectionNum] = "";
                         }
-                        //Remove final ~ or * from tail end of string, leave only internal markers
+                        //Remove final ~ or * marker(s) from tail end of string, leave only internal markers
                         command.ReadValue = TempString.Substring(0, TempString.Length -1);
 
                     }
