@@ -175,6 +175,8 @@ namespace GTAC_TcUI_PostgreSQL
                 {
                     //Create a new Npgsql command
                     var SQLreadcommand = new NpgsqlCommand(rQUERY[DBConnectionNum], DB_ConnectionArray[DBConnectionNum]);
+                    // Create temp variable for DB read processing
+                    string TempString = null;
 
                     try
                     {
@@ -182,7 +184,7 @@ namespace GTAC_TcUI_PostgreSQL
                         using NpgsqlDataReader DBreaderObject = SQLreadcommand.ExecuteReader();
                         while (DBreaderObject.Read())
                         {
-                            //Return mulitple columns from SELECT command, each columan value seperated by ~)
+                            //Return mulitple columns from SELECT command, each column value seperated by ~ marker)
                             if (DBreaderObject.FieldCount >1)
                             {
                                 //Build String from mulitple columns of data
@@ -190,23 +192,26 @@ namespace GTAC_TcUI_PostgreSQL
                                 {
                                     if (col < (DBreaderObject.FieldCount-1))
                                     {
-                                        command.ReadValue = command.ReadValue + DBreaderObject.GetValue(col).ToString() + "~";
+                                        // Sperate Columns by tilde (~)
+                                        TempString = TempString + DBreaderObject.GetValue(col).ToString() + "~";
                                     }
                                     else
                                     {
-                                        command.ReadValue = command.ReadValue + DBreaderObject.GetValue(col).ToString();
+                                        //Seperate Rows by asterisk (*)
+                                        TempString = TempString + DBreaderObject.GetValue(col).ToString() + "*";
                                     }
                                 }
                             }
-                            //Return column zero of the SELECT command, seperated by * if mulitple rows
+                            //If only a single column is detected, then simply return column zero of the SELECT command, seperated by * marker for mulitple rows
                             else
                             {
-                                command.ReadValue = command.ReadValue + DBreaderObject.GetValue(0).ToString() + "*";
+                                TempString = TempString + DBreaderObject.GetValue(0).ToString() + "*";
                             }
                             //Clear out previous Query string
                             rQUERY[DBConnectionNum] = "";
                         }
-
+                        //Remove final ~ or * from tail end of string, leave only internal markers
+                        command.ReadValue = TempString.Substring(0, TempString.Length -1);
 
                     }
                     catch (Exception e)
