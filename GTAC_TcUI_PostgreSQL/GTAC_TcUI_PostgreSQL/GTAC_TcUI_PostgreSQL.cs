@@ -3,7 +3,7 @@
 //     Copyright (c) Beckhoff Automation GmbH & Co. KG. All Rights Reserved.
 // </copyright>
 //-----------------------------------------------------------------------
-//Template by beckhoff, functional code by: b.lekx-toniolo to create custom Server Extension
+//Template by Beckhoff, functional code by: b.lekx-toniolo to create custom Server Extension
 //-----------------------------------------------------------------------
 
 using System;
@@ -170,7 +170,7 @@ namespace GTAC_TcUI_PostgreSQL
                     rQUERY[DBConnectionNum] = command.WriteValue;
                 }
 
-                //Ensure rQUERY has something (either sent from command i/f or from manually set via setQUERY        
+                //Ensure rQUERY has something (either sent from command i/f (above) or from manually set via setQUERY)       
                 if (rQUERY != null)
                 {
                     //Create a new Npgsql command
@@ -230,7 +230,7 @@ namespace GTAC_TcUI_PostgreSQL
             }
             else
             {
-                command.ReadValue = "Not connected to DB";
+                command.ReadValue = "Connection to DB not Open, State = "+ DB_ConnectionArray[DBConnectionNum].State.ToString();
             }
         }
 
@@ -312,7 +312,7 @@ namespace GTAC_TcUI_PostgreSQL
             }
             else
             {
-                command.ReadValue = "Not connected to DB";
+                command.ReadValue = "Connection to DB not Open, State = " + DB_ConnectionArray[DBConnectionNum].State.ToString();
             }
         }
         //Method calls from the server extension Interface (TcHmi symbol triggers)
