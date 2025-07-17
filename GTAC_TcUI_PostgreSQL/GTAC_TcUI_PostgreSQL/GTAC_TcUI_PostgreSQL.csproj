@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 		<AssemblyName>GTAC_TcUI_PostgreSQL</AssemblyName>
 	</PropertyGroup>
@@ -9,7 +9,7 @@
 	<PropertyGroup>
 		<Company>Sodecia GTAC</Company>
 		<Description>TcHmi Server Extension for interacting with PostgreSQL Database</Description>
-		<Copyright>Copyright © 2022-2024 Brent Lekx-Toniolo, Chris Drees</Copyright>
+		<Copyright>Copyright © 2022-2025 Brent Lekx-Toniolo, Chris Drees (test)</Copyright>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -40,22 +40,34 @@
 
 	<PropertyGroup>
 		<ProjectGuid>a4eb6faa-95b3-4040-ae2f-922fa9c4eed1</ProjectGuid>
-		<Version>1.12.760.5969</Version>
-		<PackageIcon>logo.png</PackageIcon>
-		<PackageIconUrl />
-		<AssemblyVersion>1.12.760.5901</AssemblyVersion>
-		<FileVersion>1.12.760.5901</FileVersion>
-		<PackageReleaseNotes>Uprev to NPGSQL 6.0.10</PackageReleaseNotes>
-		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<Version>1.12.760.5909</Version>
+		<PackageIcon></PackageIcon>
+		<AssemblyVersion>1.12.760.5909</AssemblyVersion>
+		<FileVersion>1.12.760.5909</FileVersion>
+		<PackageReleaseNotes>Uprev to NPGSQL 9.0.3</PackageReleaseNotes>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-		<Authors>Brent Lekx-Toniolo, Chris Drees</Authors>
+		<Authors>Brent Lekx-Toniolo, Chris Drees (test)</Authors>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-		<PackageProjectUrl>www.tbd.tld</PackageProjectUrl>
-		<PackageTags>TwinCAT HMI Server, PostgreSQL, Database</PackageTags>
+		<PackageProjectUrl>https://github.com/Sodecia-GTAC/TcUI-Extensions</PackageProjectUrl>
+		<PackageTags>TwinCAT HMI Server, TcHmi, TcUI, PostgreSQL, Database, GTAC</PackageTags>
+		<ApplicationIcon>logo.ico</ApplicationIcon>
 	</PropertyGroup>
 
-	<ItemGroup>
-	  <PackageReference Include="Npgsql" Version="6.0.11" />
+  <ItemGroup>
+    <Content Include="logo.ico">
+      <Pack>Pack</Pack>
+    </Content>
+    <Content Include="images\logo.png">
+      <Pack>Pack</Pack>
+    </Content>
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+	  <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
+	  <PackageReference Include="Npgsql" Version="9.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -64,5 +76,23 @@
 	    <PackagePath></PackagePath>
 	  </None>
 	</ItemGroup>
+
+  <ItemGroup>
+
+    <Content Include="bin\Debug\**\GTAC_TcUI_PostgreSQL.*.json" Pack="True" PackakgePath="contentFiles\runtimes\any\native">
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+    </Content>
+    <Content Include="bin\Debug\**\GTAC_TcUI_PostgreSQL.dll" Pack="True" PackagePath="contentFiles\runtimes\any\native">
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+    </Content>
+    <Content Include="bin\Debug\**\Npgsql.dll" Pack="True" PackakgePath="contentFiles\runtimes\any\native">
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+    </Content>
+    <Content Include="bin\Debug\**\Microsoft.Extensions.Logging.Abstractions.dll" Pack="True" PackakgePath="contentFiles\runtimes\any\native">
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+    </Content>
+
+  </ItemGroup>
+
 
 </Project>

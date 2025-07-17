@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>GTAC_TcUI_PostgreSQL</id>
-    <version>1.12.760.5906</version>
+    <version>1.12.760.5907</version>
     <title>$Sodecia GTAC TcUI PostgreSQL Server Extension$</title>
     <authors>Brent Lekx-Toniolo, Chris Drees (test)</authors>
     <owners>Sodecia GTAC</owners>
@@ -11,12 +11,12 @@
     <icon>images/logo.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>TcHmi Server Extension for interacting with a PostgreSQL database</description>
-    <releaseNotes>Updated to NPGSQL 6.0.10</releaseNotes>
-    <copyright>Copyright 2022-2024</copyright>
-    <tags>TwinCAT HMI Server, PostgreSQL, Database</tags>
+    <releaseNotes>Updated to NPGSQL 9.0.3</releaseNotes>
+    <copyright>Copyright 2022-2025</copyright>
+    <tags>TwinCAT HMI Server, TcHmi, TcUI, GTAC, PostgreSQL, Database</tags>
     <dependencies>
-      <group targetFramework="net5.0">
-        <dependency id="Npgsql" version="6.0.11" exclude="Build,Analyzers" />
+      <group targetFramework="net6.0">
+        <dependency id="Npgsql" version="9.0.3" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>

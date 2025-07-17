@@ -2,7 +2,7 @@
   "$schema": "ExtensionSettings.Schema.json",
   "guid": "0542e480-5ef4-401b-a478-ce0f2b61cd1e",
   "version": "2024.03.11.0",
-  "configVersion": "2024.3.11.1",
+  "configVersion": "2024.3.11.2",
   "policies": [
     "StrictPropertyValidation"
   ],

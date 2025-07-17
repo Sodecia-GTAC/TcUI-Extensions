@@ -8,6 +8,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Data;
 
 using TcHmiSrv.Core;
 using TcHmiSrv.Core.General;
@@ -24,14 +25,19 @@ namespace GTAC_TcUI_PostgreSQL
         private readonly RequestListener _requestListener = new RequestListener();
 
         //Some connection paramters
-        private readonly string connTimeout = "2";
-        private readonly string cmdTimeout = "3";
+        private readonly string connTimeout = "3";
+        private readonly string cmdTimeout = "4";
         private readonly string keepAlive = "10";
 
 
         //Create Npgsql connection object and connected flag place holders
         private NpgsqlConnection[] DB_ConnectionArray = new NpgsqlConnection[6];
         private bool[] DB_isconnected = new bool[6];
+
+        //Create an array of locks for locking out concurrent Query commands 
+        private readonly object[] rQueryLocks = new object[6];
+
+
 
         //Some internal variables
         private string[] rQUERY = new string[6];
@@ -57,12 +63,17 @@ namespace GTAC_TcUI_PostgreSQL
 
         private void CONNECT_Base(int DBConnectionNum, string targetDB, ref Command command)
         {
+            //Init Query locks
+            for (int i = 0; i < rQueryLocks.Length; i++)
+            {
+                rQueryLocks[i] = new object();
+            }
             //Check if DB name paramter is actually configured, if not then we will simply return a "Not Configured"
-            if (targetDB != "" || targetDB != null)
+            if (!string.IsNullOrEmpty(targetDB))
             {
 
                 //If no connection, create new connection and open 
-                if (DB_isconnected[DBConnectionNum] != true || DB_ConnectionArray[DBConnectionNum].FullState.ToString() != "Open")
+                if (!DB_isconnected[DBConnectionNum] || !DB_ConnectionArray[DBConnectionNum].FullState.HasFlag(ConnectionState.Open))
                 {
                     //Retreive Server Extension parameters
                     string ServerAddr = TcHmiApplication.AsyncHost.GetConfigValue(TcHmiApplication.Context, "AddrServer");
@@ -77,7 +88,7 @@ namespace GTAC_TcUI_PostgreSQL
 
                     //Build connection string using parameters from TcHmi Server Configuration
                     string connectionString =
-                        "Host=" + ServerAddr + ";Port = " + Port + ";Database=" + DB + ";Username =" + username + ";Password=" + password + ";Timeout=" + connTimeout + ";CommandTimeout=" + cmdTimeout + ";Keepalive=" + keepAlive + ";";
+                        "Host=" + ServerAddr + ";Port= " + Port + ";Database=" + DB + ";Username=" + username + ";Password=" + password + ";Timeout=" + connTimeout + ";CommandTimeout=" + cmdTimeout + ";Keepalive=" + keepAlive + ";";
 
 
                     //Assemble connection
@@ -161,20 +172,26 @@ namespace GTAC_TcUI_PostgreSQL
         {
 
             //Ensure connection state is open, otherwise inform caller
-            if (DB_ConnectionArray[DBConnectionNum].State.ToString() == "Open")
+            if (DB_ConnectionArray[DBConnectionNum].FullState.HasFlag(ConnectionState.Open))
             {
-
+                string Query_At_Moment = "";
                 //If SQL command is sent via the Read Trigger then capture and overwrite the manually set rQUERY variable
-                if (command.WriteValue != null)
+                if (DBConnectionNum >= 0 && DBConnectionNum < rQueryLocks.Length)
                 {
-                    rQUERY[DBConnectionNum] = command.WriteValue;
+                    lock (rQueryLocks[DBConnectionNum])
+                    {
+                        if (DBConnectionNum >= 0 && DBConnectionNum <= rQUERY.Length && command.WriteValue != null)
+                        {
+                            rQUERY[DBConnectionNum] = command.WriteValue;
+                        }
+                        Query_At_Moment = rQUERY[DBConnectionNum];
+                    }
                 }
-
                 //Ensure rQUERY has something (either sent from command i/f (above) or from manually set via setQUERY)       
-                if (rQUERY != null)
+                if (DBConnectionNum >= 0 && DBConnectionNum < rQUERY.Length && DBConnectionNum <= DB_ConnectionArray.Length && rQUERY[DBConnectionNum] != null)
                 {
                     //Create a new Npgsql command
-                    var SQLreadcommand = new NpgsqlCommand(rQUERY[DBConnectionNum], DB_ConnectionArray[DBConnectionNum]);
+                    using var SQLreadcommand = new NpgsqlCommand(Query_At_Moment, DB_ConnectionArray[DBConnectionNum]);
                     //Create temp variable for DB read processing
                     string TempString = null;
 
@@ -207,11 +224,11 @@ namespace GTAC_TcUI_PostgreSQL
                             {
                                 TempString = TempString + DBreaderObject.GetValue(0).ToString() + "*";
                             }
-                            //Clear out previous Query string
-                            rQUERY[DBConnectionNum] = "";
                         }
                         //Remove final ~ or * marker(s) from tail end of string, leave only internal markers
-                        command.ReadValue = TempString.Substring(0, TempString.Length -1);
+                        command.ReadValue = string.IsNullOrEmpty(TempString) ? "No Data returned from Read_Base method" : TempString[..^1];
+                        //Clear out previous Query string
+                        rQUERY[DBConnectionNum] = "";
 
                     }
                     catch (Exception e)
@@ -219,9 +236,6 @@ namespace GTAC_TcUI_PostgreSQL
                         command.ReadValue = "Failed to read: " + e.Message;
                     }
                     
-                    //Final Resource Clean-up / Garbage collection
-                    SQLreadcommand.Dispose();
-
                 }
                 else
                 {
@@ -274,19 +288,19 @@ namespace GTAC_TcUI_PostgreSQL
         private void WRITE_Base(int DBConnectionNum, ref Command command)
         {
             //Ensure connection state is open, otherwise inform caller
-            if (DB_ConnectionArray[DBConnectionNum].State.ToString() == "Open")
+            if (DB_ConnectionArray[DBConnectionNum].FullState.HasFlag(ConnectionState.Open))
             {
                 //If SQL command is sent via the WRITETrigger then capture and overwrite the manually set wINSERT variable
-                if (command.WriteValue != null)
+                if (DBConnectionNum >= 0 && DBConnectionNum < wINSERT.Length && command.WriteValue != null)
                 {
                     wINSERT[DBConnectionNum] = command.WriteValue;
                 }
 
                 //Ensure wINSERT has something (either sent from command i/f or from manually set via setINSERT        
-                if (wINSERT != null)
+                if (DBConnectionNum >= 0 && DBConnectionNum < wINSERT.Length && DBConnectionNum <= DB_ConnectionArray.Length && wINSERT[DBConnectionNum] != null)
                 {
                     //Create a new Npgsql Command
-                    var SQLwritecommand = new NpgsqlCommand(wINSERT[DBConnectionNum], DB_ConnectionArray[DBConnectionNum]);
+                    using var SQLwritecommand = new NpgsqlCommand(wINSERT[DBConnectionNum], DB_ConnectionArray[DBConnectionNum]);
 
                     try
                     {
@@ -302,8 +316,6 @@ namespace GTAC_TcUI_PostgreSQL
 
                     }
 
-                    //Final Resource Clean-up / Garbage collection
-                    SQLwritecommand.Dispose();
                 }
                 else
                 {
@@ -353,43 +365,49 @@ namespace GTAC_TcUI_PostgreSQL
         //--------------------------------------------
         private void CLOSE(Command command)
         {
-            DB_ConnectionArray[0].Close();
-            DB_ConnectionArray[0].Dispose();
+            DB_ConnectionArray[0]?.Close();
+            DB_ConnectionArray[0]?.Dispose();
+            DB_ConnectionArray[0] = null;
             DB_isconnected[0] = false;
         }
         //------------- Close Connection Optional 1-------------
         private void CLOSE_OP1(Command command)
         {
-            DB_ConnectionArray[1].Close();
-            DB_ConnectionArray[1].Dispose();
+            DB_ConnectionArray[1]?.Close();
+            DB_ConnectionArray[1]?.Dispose();
+            DB_ConnectionArray[1] = null;
             DB_isconnected[1] = false;
         }
         //------------- Close Connection Optional 2-------------
         private void CLOSE_OP2(Command command)
         {
-            DB_ConnectionArray[2].Close();
-            DB_ConnectionArray[2].Dispose();
+            DB_ConnectionArray[2]?.Close();
+            DB_ConnectionArray[2]?.Dispose();
+            DB_ConnectionArray[2] = null;
             DB_isconnected[2] = false;
         }
         //------------- Close Connection Optional 3-------------
         private void CLOSE_OP3(Command command)
         {
-            DB_ConnectionArray[3].Close();
-            DB_ConnectionArray[3].Dispose();
+            DB_ConnectionArray[3]?.Close();
+            DB_ConnectionArray[3]?.Dispose();
+            DB_ConnectionArray[3] = null;
             DB_isconnected[3] = false;
         }
         //------------- Close Connection Optional 4-------------
         private void CLOSE_OP4(Command command)
         {
-            DB_ConnectionArray[4].Close();
-            DB_ConnectionArray[4].Dispose();
+            DB_ConnectionArray[4]?.Close();
+            DB_ConnectionArray[4]?.Dispose();
+            DB_ConnectionArray[4] = null;
             DB_isconnected[4] = false;
         }
         //------------- Close Connection Optional 5-------------
         private void CLOSE_OP5(Command command)
         {
-            DB_ConnectionArray[5].Close();
-            DB_ConnectionArray[5].Dispose();
+            DB_ConnectionArray[5]?.Close();
+            DB_ConnectionArray[5]?.Dispose();
+            DB_ConnectionArray[5] = null;
             DB_isconnected[5] = false;
         }
 
@@ -730,7 +748,7 @@ namespace GTAC_TcUI_PostgreSQL
                                 break;
                             //Get Current Query string, Optional DB 3
                             case "getQUERY_OP3":
-                                getQUERY_OP2(command);
+                                getQUERY_OP3(command);
                                 break;
                             //Get Current Query string, Optional DB 4
                             case "getQUERY_OP4":
