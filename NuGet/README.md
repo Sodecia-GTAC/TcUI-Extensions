@@ -3,7 +3,7 @@
 Follow these instructions to install new / updated NuGet Packages into your project.
 
 # Step 1
-Copy and paste the NuGet Package into the location shown below.
+Once you have cloned / pulled the latest TcUI-Extensions repo you can copy and paste the NuGet Package (from the Nuget folder) into the location shown below.
 
 C:\TwinCAT\Functions\TE2000-HMI-Engineering\References
 
