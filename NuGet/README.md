@@ -21,7 +21,7 @@ Select Package Source location
 
 This sets where NuGet package manager will look for NuGet Packages.
 
-In this case we will be pointing to pour local source, which is listed as "TwinCAT HMI Customer".
+In this case we will be pointing to our local source, which is listed as "TwinCAT HMI Customer".
 
 <img width="1371" height="308" alt="image" src="https://github.com/user-attachments/assets/764c5a8e-6ca4-47c8-a2af-936cb52a7d91" />
 
