@@ -40,16 +40,18 @@ Click Update, the process will begin, follow the onscreen prompts as required.
  <img width="931" height="583" alt="image" src="https://github.com/user-attachments/assets/ee599392-09e6-4503-8511-bfa15186889c" />
 
 # Step 6:
-Once installed you can close NuGet Package manager, next we should confirm the instal took place successfully.
+Once installed you can close NuGet Package manager, next we should confirm the install took place successfully.
 
-Click on the Server Extension, and over to the right, confirm the new version.
+Ensure the Server Extension wnet back to green (It will have likely switched to red during the update), this might take a few mins so be patient. 
+
+Click on the Server Extension, over to the right you can confirm the new version.
 
 <img width="1838" height="467" alt="image" src="https://github.com/user-attachments/assets/d44c2c53-7630-48db-be88-ba04b4c07b5a" />
 
 # Step 7
 Confirm the interface works as required.
 
-Double click the server extension to open it's interface, click the accpet button and ensure "Update successful" shows up in green at the top.
+Double click the server extension to open it's interface, click the accept button and ensure "Update successful" shows up in green at the top.
 
 <img width="1250" height="594" alt="image" src="https://github.com/user-attachments/assets/b7911ae8-ed60-471e-8ab9-05c6a21e591f" />
 
