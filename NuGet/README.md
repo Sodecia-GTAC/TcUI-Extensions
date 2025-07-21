@@ -53,7 +53,7 @@ Confirm the interface works as required.
 
 Double click the server extension to open it's interface, click the accept button and ensure "Update successful" shows up in green at the top.
 
-<img width="1250" height="594" alt="image" src="https://github.com/user-attachments/assets/b7911ae8-ed60-471e-8ab9-05c6a21e591f" />
+<img width="1260" height="585" alt="image" src="https://github.com/user-attachments/assets/2b618df3-62aa-41f0-8df2-15d3154e8c12" />
 
 # Step 8
 You may now Build and publish your TcHmi project as normal and the new SE will go with the publishing.
