@@ -55,7 +55,10 @@ Double click the server extension to open it's interface, click the accept butto
 
 <img width="1250" height="594" alt="image" src="https://github.com/user-attachments/assets/b7911ae8-ed60-471e-8ab9-05c6a21e591f" />
 
+# Step 8
+You man now Build and publish your TcHmi project as normal and the new SE will go with the publishing.
 
+Depending on the type of SE you installed / updated, you may need to rebuild / re-activate your plc project as well (best done first).
 
 
 
