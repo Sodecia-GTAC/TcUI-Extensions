@@ -9,7 +9,7 @@
 	<PropertyGroup>
 		<Company>Sodecia GTAC</Company>
 		<Description>TcHmi Server Extension for interacting with PostgreSQL Database</Description>
-		<Copyright>Copyright © 2022-2025 Brent Lekx-Toniolo, Chris Drees (test)</Copyright>
+		<Copyright>Copyright © 2022-2026 Brent Lekx-Toniolo, Chris Drees (test)</Copyright>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -40,10 +40,10 @@
 
 	<PropertyGroup>
 		<ProjectGuid>a4eb6faa-95b3-4040-ae2f-922fa9c4eed1</ProjectGuid>
-		<Version>1.12.760.5909</Version>
+		<Version>1.12.762.5310</Version>
 		<PackageIcon></PackageIcon>
-		<AssemblyVersion>1.12.760.5909</AssemblyVersion>
-		<FileVersion>1.12.760.5909</FileVersion>
+		<AssemblyVersion>1.12.762.5310</AssemblyVersion>
+		<FileVersion>1.12.762.5310</FileVersion>
 		<PackageReleaseNotes>Uprev to NPGSQL 9.0.3</PackageReleaseNotes>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
