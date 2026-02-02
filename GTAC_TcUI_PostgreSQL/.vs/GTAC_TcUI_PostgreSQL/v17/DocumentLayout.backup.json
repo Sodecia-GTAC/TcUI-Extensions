@@ -1,12 +1,37 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\GIT Repos\\GTAC\\TcUI-Extensions\\GTAC_TcUI_PostgreSQL\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0542E480-5EF4-401B-A478-CE0F2B61CD1E}|GTAC_TcUI_PostgreSQL\\GTAC_TcUI_PostgreSQL.csproj|d:\\git repos\\gtac\\tcui-extensions\\gtac_tcui_postgresql\\gtac_tcui_postgresql\\gtac_tcui_postgresql.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{0542E480-5EF4-401B-A478-CE0F2B61CD1E}|GTAC_TcUI_PostgreSQL\\GTAC_TcUI_PostgreSQL.csproj|solutionrelative:gtac_tcui_postgresql\\gtac_tcui_postgresql.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GTAC_TcUI_PostgreSQL",
+              "DocumentMoniker": "D:\\GIT Repos\\GTAC\\TcUI-Extensions\\GTAC_TcUI_PostgreSQL\\GTAC_TcUI_PostgreSQL\\GTAC_TcUI_PostgreSQL.csproj",
+              "RelativeDocumentMoniker": "GTAC_TcUI_PostgreSQL\\GTAC_TcUI_PostgreSQL.csproj",
+              "ToolTip": "D:\\GIT Repos\\GTAC\\TcUI-Extensions\\GTAC_TcUI_PostgreSQL\\GTAC_TcUI_PostgreSQL\\GTAC_TcUI_PostgreSQL.csproj",
+              "RelativeToolTip": "GTAC_TcUI_PostgreSQL\\GTAC_TcUI_PostgreSQL.csproj",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAAC4AAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-02-02T19:35:50.067Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

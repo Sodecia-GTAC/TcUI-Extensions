@@ -40,11 +40,11 @@
 
 	<PropertyGroup>
 		<ProjectGuid>a4eb6faa-95b3-4040-ae2f-922fa9c4eed1</ProjectGuid>
-		<Version>1.12.762.5310</Version>
+		<Version>1.12.762.5312</Version>
 		<PackageIcon></PackageIcon>
-		<AssemblyVersion>1.12.762.5310</AssemblyVersion>
-		<FileVersion>1.12.762.5310</FileVersion>
-		<PackageReleaseNotes>Uprev to NPGSQL 9.0.3</PackageReleaseNotes>
+		<AssemblyVersion>1.12.762.5312</AssemblyVersion>
+		<FileVersion>1.12.762.5312</FileVersion>
+		<PackageReleaseNotes>Remove nusepc file and amalgamate NuGet packing directives into csproj</PackageReleaseNotes>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<Authors>Brent Lekx-Toniolo, Chris Drees (test)</Authors>
@@ -52,45 +52,35 @@
 		<PackageProjectUrl>https://github.com/Sodecia-GTAC/TcUI-Extensions</PackageProjectUrl>
 		<PackageTags>TwinCAT HMI Server, TcHmi, TcUI, PostgreSQL, Database, GTAC</PackageTags>
 		<ApplicationIcon>logo.ico</ApplicationIcon>
-	</PropertyGroup>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+  </PropertyGroup>
 
+  <!-- Dependancies -->
   <ItemGroup>
-    <Content Include="logo.ico">
-      <Pack>Pack</Pack>
-    </Content>
-    <Content Include="images\logo.png">
-      <Pack>Pack</Pack>
-    </Content>
+    <PackageReference Include="Npgsql" Version="9.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
   </ItemGroup>
 
-
-
+  <!-- NuGet Pack Layout (Tchmi is picky about the expected layout and doesnt follow all newer SDK styled NuGet layout practices) -->
   <ItemGroup>
-	  <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
-	  <PackageReference Include="Npgsql" Version="9.0.3" />
-	</ItemGroup>
+    <!-- DLLs to go under runtimes/any/native -->
+    <None Include="$(OutputPath)\GTAC_TcUI_PostgreSQL.dll" Pack="true" PackagePath="runtimes/any/native/" />
+    <None Include="$(OutputPath)\Npgsql.dll" Pack="true" PackagePath="runtimes/any/native/" />
+    <None Include="$(OutputPath)\Microsoft.Extensions.Logging.Abstractions.dll" Pack="true" PackagePath="runtimes/any/native/" />
 
-	<ItemGroup>
-	  <None Include="LICENSE.txt">
-	    <Pack>True</Pack>
-	    <PackagePath></PackagePath>
-	  </None>
-	</ItemGroup>
+    <!-- JSON files to go under runtimes/any/native -->
+    <None Include="$(OutputPath)\GTAC_TcUI_PostgreSQL.Config.json" Pack="true" PackagePath="runtimes/any/native/" />
+    <None Include="$(OutputPath)\GTAC_TcUI_PostgreSQL.deps.json" Pack="true" PackagePath="runtimes/any/native/" />
+    <None Include="$(OutputPath)\GTAC_TcUI_PostgreSQL.Language.en.json" Pack="true" PackagePath="runtimes/any/native/" />
+    <None Include="$(OutputPath)\GTAC_TcUI_PostgreSQL.Schema.json" Pack="true" PackagePath="runtimes/any/native/" />
 
-  <ItemGroup>
+    <!-- Image files to go under images/-->
+    <None Include="images\*.png" Pack="true" PackagePath="images/" />
+    <None Include="images\*.ico" Pack="true" PackagePath="images/" />
 
-    <Content Include="bin\Debug\**\GTAC_TcUI_PostgreSQL.*.json" Pack="True" PackakgePath="contentFiles\runtimes\any\native">
-      <PackageCopyToOutput>true</PackageCopyToOutput>
-    </Content>
-    <Content Include="bin\Debug\**\GTAC_TcUI_PostgreSQL.dll" Pack="True" PackagePath="contentFiles\runtimes\any\native">
-      <PackageCopyToOutput>true</PackageCopyToOutput>
-    </Content>
-    <Content Include="bin\Debug\**\Npgsql.dll" Pack="True" PackakgePath="contentFiles\runtimes\any\native">
-      <PackageCopyToOutput>true</PackageCopyToOutput>
-    </Content>
-    <Content Include="bin\Debug\**\Microsoft.Extensions.Logging.Abstractions.dll" Pack="True" PackakgePath="contentFiles\runtimes\any\native">
-      <PackageCopyToOutput>true</PackageCopyToOutput>
-    </Content>
+    <!-- License file at package root -->
+    <None Include="LICENSE.txt" Pack="true" PackagePath="" />
+
 
   </ItemGroup>
 
