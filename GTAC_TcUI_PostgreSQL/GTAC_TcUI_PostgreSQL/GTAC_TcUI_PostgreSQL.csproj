@@ -40,11 +40,11 @@
 
 	<PropertyGroup>
 		<ProjectGuid>a4eb6faa-95b3-4040-ae2f-922fa9c4eed1</ProjectGuid>
-		<Version>1.12.762.5312</Version>
+		<Version>1.12.762.5313</Version>
 		<PackageIcon></PackageIcon>
-		<AssemblyVersion>1.12.762.5312</AssemblyVersion>
-		<FileVersion>1.12.762.5312</FileVersion>
-		<PackageReleaseNotes>Remove nusepc file and amalgamate NuGet packing directives into csproj</PackageReleaseNotes>
+		<AssemblyVersion>1.12.762.5313</AssemblyVersion>
+		<FileVersion>1.12.762.5313</FileVersion>
+		<PackageReleaseNotes>Rebuild in VS Studio 2026 and upgrade NPGSQL to latest 9 series release</PackageReleaseNotes>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<Authors>Brent Lekx-Toniolo, Chris Drees (test)</Authors>
@@ -57,7 +57,7 @@
 
   <!-- Dependancies -->
   <ItemGroup>
-    <PackageReference Include="Npgsql" Version="9.0.3" />
+    <PackageReference Include="Npgsql" Version="9.0.5" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
   </ItemGroup>
 
