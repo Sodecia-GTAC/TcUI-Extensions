@@ -1,0 +1,29 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+
+  "properties": {
+
+
+    "App": {
+      "type": "string",
+      "default": "C:\\Program Files (x86)\\KEYENCE\\IV3-Navigator\\IV3-Navigator.exe"
+    },
+    "CMD_Line": {
+      "type": "string",
+      "default": ""
+    },
+    "Env_Dir": {
+      "type": "string",
+      "default": "C:\\Program Files (x86)\\KEYENCE\\IV3-Navigator"
+
+    },
+    "showWindow": {
+      "type": "boolean",
+      "default": true
+    }
+
+
+
+  }
+}

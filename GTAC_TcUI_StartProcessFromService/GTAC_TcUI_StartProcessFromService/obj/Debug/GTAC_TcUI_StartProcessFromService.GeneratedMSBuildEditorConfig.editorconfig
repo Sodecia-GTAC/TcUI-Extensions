@@ -1,0 +1,8 @@
+is_global = true
+build_property.RootNamespace = GTAC_TcUI_StartProcessFromService
+build_property.ProjectDir = C:\Users\katie\Desktop\GTAC_TcUI_StartProcessFromService\GTAC_TcUI_StartProcessFromService\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.CsWinRTUseWindowsUIXamlProjections = false
+build_property.EffectiveAnalysisLevelStyle = 
+build_property.EnableCodeStyleSeverity = 

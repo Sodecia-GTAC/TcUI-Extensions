@@ -10,3 +10,10 @@ Welcome to the Sodecia - GTAC, TcUI - Extentions Repository
 A TcHmi Server extension for interacting with a PostgreSQL databases (up to 6)
 
 * Current Version = 1.12.762.5313 (where 1.12.762.53xx matches targeted TcHmi test level and xx is a GTAC internal package build level)
+
+
+# GTAC\_TcUI\_StartProcessFromService:
+
+A TcHmi Server extension to allow a TcHmi event to start up a windows service (like a windows application)
+
+* Current Version = 1.12.762.5301 (where 1.12.762.53xx matches targeted TcHmi test level and xx is a GTAC internal package build level)

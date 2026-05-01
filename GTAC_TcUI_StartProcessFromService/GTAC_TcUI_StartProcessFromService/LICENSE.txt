@@ -1,0 +1,11 @@
+﻿
+This package license notice:
+
+------------------------------------------
+Original Author(s): Beckhoff Automation GmbH (additions / modifications by Brent Lekx-Toniolo and Will Kim of Sodecia GTAC)
+Copyright (c) Beckhoff Automation GmbH
+-------------------------------------------
+
+
+
+

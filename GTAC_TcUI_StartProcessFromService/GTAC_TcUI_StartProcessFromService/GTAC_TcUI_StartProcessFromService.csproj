@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <LangVersion>9.0</LangVersion>
+  </PropertyGroup>
+
+  
+  <PropertyGroup>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TcHmiExtensionTypes>{5DF3DCF0-60A1-4102-985E-1810812D0E69}</TcHmiExtensionTypes>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TcHmiServerApiVersionNumberMajor>2</TcHmiServerApiVersionNumberMajor>
+  </PropertyGroup>
+
+  <Import Project="$(TWINCAT3DIR)..\Functions\TE2000-HMI-Engineering\Infrastructure\TcHmiServer\imports\TcHmiServerExtensionCSharp.proj" />
+
+
+
+  <!-- All below Added by GTAC-->
+  <PropertyGroup>
+    <ProjectGuid>3b379132-0bb8-457d-8aed-d80bd030d567</ProjectGuid>
+    <Version>1.12.762.5301</Version>
+    <PackageIcon></PackageIcon>
+    <AssemblyVersion>1.12.762.5301</AssemblyVersion>
+    <FileVersion>1.12.762.5301</FileVersion>
+    <PackageReleaseNotes>Init build for release on TcUI Extension repo</PackageReleaseNotes>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Authors>Beckhoff Automation GmbH &amp; Co. KG (modified by GTAC)</Authors>
+    <Company>Beckhoff Automation GmbH &amp; Co. KG</Company>
+    <Copyright>Copyright © Beckhoff Automation GmbH &amp; Co. KG</Copyright>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+  </PropertyGroup>
+
+  <!-- Dependancies -->
+  
+  <!-- NuGet Pack Layout (Tchmi is picky about the expected layout and doesnt follow all newer SDK styled NuGet layout practices) -->
+  <ItemGroup>
+    <!-- DLLs to go under runtimes/any/native -->
+    <None Include="$(OutputPath)\GTAC_TcUI_StartProcessFromService.dll" Pack="true" PackagePath="runtimes/any/native/" />
+   
+    <!-- JSON files to go under runtimes/any/native -->
+    <None Include="$(OutputPath)\GTAC_TcUI_StartProcessFromService.Config.json" Pack="true" PackagePath="runtimes/any/native/" />
+    <None Include="$(OutputPath)\GTAC_TcUI_StartProcessFromService.deps.json" Pack="true" PackagePath="runtimes/any/native/" />
+    <None Include="$(OutputPath)\GTAC_TcUI_StartProcessFromService.Language.en.json" Pack="true" PackagePath="runtimes/any/native/" />
+    <None Include="$(OutputPath)\GTAC_TcUI_StartProcessFromService.Schema.json" Pack="true" PackagePath="runtimes/any/native/" />
+
+    <!-- Image files to go under images/-->
+    <None Include="images\*.png" Pack="true" PackagePath="images/" />
+    <None Include="images\*.ico" Pack="true" PackagePath="images/" />
+
+    <!-- License file at package root -->
+    <None Include="LICENSE.txt" Pack="true" PackagePath="" />
+
+
+  </ItemGroup>
+
+
+</Project>

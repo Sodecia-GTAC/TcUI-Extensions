@@ -1,0 +1,27 @@
+{
+  "$schema": "ExtensionSettings.Schema.json",
+  "guid": "0542e480-5ef4-401b-a478-ce0f2b61cd1e",
+  "version": "2025.8.5.0",
+  "configVersion": "2025.8.5.11",
+  "policies": [
+    "StrictPropertyValidation"
+  ],
+  "symbols": {
+    "Launch_App": {
+      "userGroups": [
+        "__SystemUsers"
+      ],
+      "hidden": false,
+      "readValue": {
+        "allOf": [
+          {
+            "function": true
+          },
+          {
+            "$ref": "tchmi:general#/definitions/String"
+          }
+        ]
+      }
+    }
+  }
+}

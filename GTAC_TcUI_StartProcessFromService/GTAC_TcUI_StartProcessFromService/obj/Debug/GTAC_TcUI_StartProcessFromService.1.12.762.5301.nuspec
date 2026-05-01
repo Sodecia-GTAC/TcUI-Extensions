@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>GTAC_TcUI_StartProcessFromService</id>
+    <version>1.12.762.5301</version>
+    <authors>Beckhoff Automation GmbH &amp; Co. KG (modified by GTAC)</authors>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="file">LICENSE.txt</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <description>Package Description</description>
+    <releaseNotes>Init build for release on TcUI Extension repo</releaseNotes>
+    <copyright>Copyright © Beckhoff Automation GmbH &amp; Co. KG</copyright>
+    <repository type="git" />
+    <dependencies>
+      <group targetFramework=".NETCoreApp3.1" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\katie\Desktop\GTAC_TcUI_StartProcessFromService\GTAC_TcUI_StartProcessFromService\bin\Debug\GTAC_TcUI_StartProcessFromService.dll" target="runtimes\any\native\GTAC_TcUI_StartProcessFromService.dll" />
+    <file src="C:\Users\katie\Desktop\GTAC_TcUI_StartProcessFromService\GTAC_TcUI_StartProcessFromService\bin\Debug\GTAC_TcUI_StartProcessFromService.Config.json" target="runtimes\any\native\GTAC_TcUI_StartProcessFromService.Config.json" />
+    <file src="C:\Users\katie\Desktop\GTAC_TcUI_StartProcessFromService\GTAC_TcUI_StartProcessFromService\bin\Debug\GTAC_TcUI_StartProcessFromService.deps.json" target="runtimes\any\native\GTAC_TcUI_StartProcessFromService.deps.json" />
+    <file src="C:\Users\katie\Desktop\GTAC_TcUI_StartProcessFromService\GTAC_TcUI_StartProcessFromService\bin\Debug\GTAC_TcUI_StartProcessFromService.Language.en.json" target="runtimes\any\native\GTAC_TcUI_StartProcessFromService.Language.en.json" />
+    <file src="C:\Users\katie\Desktop\GTAC_TcUI_StartProcessFromService\GTAC_TcUI_StartProcessFromService\bin\Debug\GTAC_TcUI_StartProcessFromService.Schema.json" target="runtimes\any\native\GTAC_TcUI_StartProcessFromService.Schema.json" />
+    <file src="C:\Users\katie\Desktop\GTAC_TcUI_StartProcessFromService\GTAC_TcUI_StartProcessFromService\LICENSE.txt" target="LICENSE.txt" />
+  </files>
+</package>
